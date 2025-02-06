@@ -92,6 +92,9 @@ This project follows an automated deployment pipeline:
 4. **Health Check & Rollback:**
    - If any issues are detected, the deployment is rolled back automatically.
 
+## Deployed @ 
+- https://devf.eventdesk.io/
+
 ## License
 This project is licensed under the MIT License.
 
