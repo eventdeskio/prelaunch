@@ -88,7 +88,7 @@ app.get("/testdeployment", (req, res) => {
 
     console.log(process.env.ENV_TEST || "not working!");
     const response = {
-      status: "TESTTTTTTTTTTTTTTTTTTTTTTTTTT",
+      status: "test ok",
       version: "1.0.0",
       environment: process.env.ENV_TEST || "not working!",
     };
