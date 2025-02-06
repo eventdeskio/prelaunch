@@ -1,80 +1,100 @@
-# eventdesk-mvp
-# EventDesk - An Event Management System 
+# Prelaunch Page for Event Management Website
 
-**Description**: EventDesk is a comprehensive Angular-based application designed to simplify event planning and management. This platform enables vendors, admins, and users to collaboratively manage events, track progress, and handle requirements efficiently. The system integrates features such as dynamic routing, role-based navigation, email notifications, and a responsive user interface.
+## Overview
+This repository contains the prelaunch page for our upcoming Event Management website. The prelaunch page consists of two key sections:
 
-## Features 
+1. **Landing Page**: Provides an overview of our platform and allows users to sign up for updates.
+2. **Hiring Page**: A dedicated section where interested candidates can upload their resumes and provide their details.
 
-1. **Secure Authentication:** Easy and safe login and signup using JWT (JSON Web Token).
-2. **Role-Based Access:**
-      Supports different roles:
-         - *Super Admin:* Full control over the system.
-         - *Admin:* Manages events and users.
-         - *Host:* Organizes events.
-         - *Vendor:* Provides services for events.
-3. **Event Management:** Create, read, update, and delete events easily.
-4. **Vendor and Host Integration:** Seamlessly assign vendors and hosts to events.
-     
-## Project Structure
-
-**Backend Service**
-
-The backend service is a Node.js application that provides an API for event management. It supports the following features:
-
-- User authentication and role-based access control (RBAC)
-- Event CRUD operations (Create, Read, Update, Delete)
-- Vendor and host integration
-
-**Frontend Application**
-
-The frontend application is an Angular-based application that provides a user interface for managing events. It supports the following features:
-
-- Role-based views and navigation
-- Event list, preview, and details
-- Service management
-- Forgot password functionality with email-based reset
+The goal of this prelaunch page is to build anticipation for our platform and attract talented individuals to join our team.
 
 ## Tech Stack
+The project is built using the following technologies:
 
-[![My Skills](https://skillicons.dev/icons?i=postgresql,angular,express,nodejs)](https://skillicons.dev)
+- **Frontend**: Angular (for a dynamic and interactive UI)
+- **Backend**: Node.js with Express (handling API requests and form submissions)
+- **Database**: PostgreSQL (storing user data and job applications)
+- **Deployment**: GitHub Actions CI/CD Pipeline
 
-## Prerequisites
+## Deployment & CI/CD Pipeline
+This project is deployed using **GitHub Actions** with an automated CI/CD pipeline. The pipeline ensures:
 
-- Angular CLI (v19)
-- Node.js (v14 or higher)
-- PostgreSQL database
-- Email service credentials (for forgot password functionality)
-- Environment Variables
+- **Automated Rollbacks on Failure**: If a deployment fails due to a bug or critical error, the pipeline automatically rolls back to the last stable version.
+- **Zero Downtime Deployments**: Ensures seamless updates without affecting live users, providing a smooth experience during releases.
 
-The following environment variables are required to configure the backend service:
+## Features
+### Landing Page
+- Responsive and modern UI
+- Email subscription form for updates
+- Informational content about the upcoming platform
 
-- **DB_USER**: PostgreSQL username
-- **DB_PASSWORD**: PostgreSQL password
-- **DB_HOST**: Database host (default: localhost)
-- **DB_PORT**: Database port (default: 5432)
-- **DB_NAME**: Name of the database
-- **JWT_SECRET**: Secret key for JWT signing
+### Hiring Page
+- Resume upload feature
+- Form to collect candidate details (name, email, experience, etc.)
+- Data securely stored in PostgreSQL
 
-## Setup Instructions
+### Backend Functionality
+- API endpoints for handling form submissions
+- File upload and storage for resumes
+- Data validation and error handling
 
-### Backend
+### Deployment & Monitoring
+- Continuous Integration and Deployment with GitHub Actions
+- Health checks and monitoring for high availability
+- Secure database integration with PostgreSQL
 
-1. Clone the repository: `git clone <repository_url>`
-2. Install dependencies: `npm install`
-3. Configure Database:
-   - Create the required database and tables using the provided schema.
-   - Create a `.env` file and set the environment variables as mentioned above.
-4. Run the server: `npm start`
-   - The server will run at [http://localhost:3000](http://localhost:3000)
+## Installation & Setup
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (v18+ recommended)
+- PostgreSQL
+- Angular CLI
+- Git
 
-### Frontend
+### Setup Steps
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/eventdeskio/prelaunch.git
+   cd prelaunch-page
+   ```
 
-1. Clone the repository: `git clone <repository_url>`
-2. Install dependencies: `npm install`
-3. Set up environment variables: Update `src/environment/environment.ts` with your API base URL.
-4. Run the development server: `ng serve --port=4200`
-   - Access the application at [http://localhost:4200](http://localhost:4200)
+2. **Install dependencies:**
+   ```sh
+   npm install  # For backend
+   cd frontend && npm install  # For Angular frontend
+   ```
+
+3. **Setup Environment Variables:**
+   Create a `.env` file in the backend directory and add your configuration:
+   ```env
+   DATABASE_URL=//PostgreSQL DB url
+   PORT=// Desired port
+   ```
+
+4. **Run the Application:**
+   ```sh
+   npm run dev  # Starts the backend
+   cd frontend && ng serve  # Starts the Angular frontend
+   ```
+
+5. **Access the Website:**
+   - Frontend: `http://localhost:4200`
+   - Backend API: `http://localhost:5000`
+
+## Deployment Process
+This project follows an automated deployment pipeline:
+1. **Push to GitHub:**
+   - Code changes are pushed to the repository.
+2. **CI/CD Pipeline Execution:**
+   - The pipeline builds and tests the application.
+3. **Zero Downtime Deployment:**
+   - The new version is deployed while the existing version continues running.
+4. **Health Check & Rollback:**
+   - If any issues are detected, the deployment is rolled back automatically.
+
+## License
+This project is licensed under the MIT License.
 
 ## Contact
-
-For any questions or feedback, please reach out to: [krishnaag.317@gmail.com](mailto:krishnaag.317@gmail.com)
+For any questions or feedback, feel free to reach out:
+- Email: raja@herocore.io
