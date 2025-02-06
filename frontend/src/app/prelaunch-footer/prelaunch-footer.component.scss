@@ -1,0 +1,42 @@
+.footer {
+    color: #6c757d;
+    text-align: left;
+    margin-left: 7%;
+    margin-right: 7%;
+    font-family: 'Poppins', sans-serif;
+    font-size: smaller;
+    border-top: #000;
+}
+
+.footer h6 {
+    color: #000;
+}
+
+.footer ul {
+    padding-left: 0;
+}
+
+.footer ul li {
+    margin-bottom: 5px;
+    padding: 3%;
+}
+
+.footer ul li a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.footer ul li a:hover {
+    color: #000;
+}
+
+.social-icons a {
+    display: inline-block;
+    color: #6c757d;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #000;
+}

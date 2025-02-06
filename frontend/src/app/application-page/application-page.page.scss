@@ -1,0 +1,101 @@
+.title {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary);
+}
+
+
+
+.navitem {
+    font-family: 'Poppins', sans-serif;
+    color: var(--grey);
+
+}
+.ion-padding{
+    overflow-x: auto;
+    background: url(../../assets/application-Background.png);
+    background-size: cover;
+}
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    background: var(--primary-light);
+    padding: 6%;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    // color: var(--grey);
+
+}
+
+.application-link:hover {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+}
+
+.right-container h2, h5{
+    color: var(--fontcolor);
+    padding: 1%;
+}
+h5{
+    font-size: medium;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+    padding: 1%;
+    font-size: small;
+
+}
+
+ion-input,
+ion-textarea {
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+
+.file-upload {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+
+
+.classic-btn {
+    display: flex;
+    border-left: 4px solid var(--secondary);
+    border-right: 4px solid var(--teritary);
+    padding: 10px 60px;
+    background-color: var(--primary);
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin: auto;
+
+}

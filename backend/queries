@@ -1,0 +1,62 @@
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL CHECK (role IN ('SUPER_ADMIN', 'ADMIN', 'HOST', 'VENDOR')),
+    status VARCHAR(50) DEFAULT 'ACTIVE',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE companies (
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+company_name VARCHAR(255) NOT NULL,
+admin_id UUID REFERENCES users(id),
+company_address VARCHAR(255) NOT NULL,
+GST_Number VARCHAR(255),
+company_email VARCHAR(255) UNIQUE NOT NULL,
+company_helplline_number VARCHAR(10),
+status VARCHAR(50) DEFAULT 'ACTIVE',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+-- CREATE TABLE events (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     company_id UUID REFERENCES companies(id),
+--     admin_id UUID REFERENCES users(id),
+--     title VARCHAR(255) NOT NULL,
+--     description TEXT,
+--     host_id UUID REFERENCES users(id),
+--     status VARCHAR(50) DEFAULT 'DRAFT',
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+CREATE TABLE events (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID REFERENCES companies(id),
+    admin_id UUID REFERENCES users(id),
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    category VARCHAR(100),
+    hosts UUID[],
+    vendors UUID[],
+    requirements JSONB,
+    start_date TIMESTAMP,
+    end_date TIMESTAMP,
+    total_budget NUMERIC(10, 2),
+    status VARCHAR(50) DEFAULT 'DRAFT',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE vendor_assignments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    event_id UUID REFERENCES events(id),
+    vendor_id UUID REFERENCES users(id),
+    status VARCHAR(50) DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    service VARCHAR(50),
+    budget NUMERIC(10, 2)
+);

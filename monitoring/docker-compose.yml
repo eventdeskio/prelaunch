@@ -1,0 +1,84 @@
+version: "3"
+
+services:
+  prom-server:
+    image: prom/prometheus
+    container_name: prom-server
+    ports:
+      - 9090:9090
+    volumes:
+      - /home/harish/eventdesk/prometheus-config.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - dokploy-network
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SERVER_HTTP_PORT=3300
+    ports:
+      - '3300:3300'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - dokploy-network
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - 3100:3100
+    volumes:
+      - loki-storage:/loki
+
+volumes:
+  grafana-storage: {}
+  loki-storage: {}
+  prometheus-storage: {}
+
+
+networks:
+  dokploy-network:
+    external: true
+
+
+# version: "3"
+
+# services:
+#   prom-server:
+#     image: prom/prometheus
+#     ports:
+#       - 9090:9090
+#     volumes:
+#       - /home/harish/eventdesk/prometheus-config.yml:/etc/prometheus/prometheus.yml
+#       - prometheus-data:/prometheus
+#     networks:
+#       - dokploy-network
+
+#   grafana:
+#     image: grafana/grafana-enterprise
+#     container_name: grafana
+#     restart: unless-stopped
+#     environment:
+#       - GF_SERVER_HTTP_PORT=3000
+#     ports:
+#       - '3300:3000'
+#     volumes:
+#       - grafana-storage:/var/lib/grafana
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.grafana.rule=Host(`monitor.eventdesk.io`)"
+#       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+#     networks:
+#       - dokploy-network
+
+# volumes:
+#   grafana-storage: {}
+#   prometheus-data: {}
+
+# networks:
+#   dokploy-network:
+#     external: true
