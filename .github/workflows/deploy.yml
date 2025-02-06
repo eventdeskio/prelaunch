@@ -3,7 +3,7 @@ name: Build and Deploy App with Docker Compose
 on:
   push:
     branches:
-      - prelaunch  
+      - uat  
 
 jobs:
   Test-build-and-push:
@@ -21,11 +21,6 @@ jobs:
       run: |
         cd backend
         npm install 
-
-    # - name: Run tests
-    #   run: |
-    #     cd backend
-    #     npm test  
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -74,7 +69,7 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DOKPLOY_TOKEN}}" \
           -H "Content-Type: application/json" \
           -d '{
-            "applicationId": "${{secrets.FRONTEND_APPLICATION_ID}}"
+            "applicationId": "${{secrets.FRONTEND_UAT_APPLICATION_ID}}"
           }')
           echo "FRONTEND HTTP Response: $response"
       - name: Trigger Backend Deployment
@@ -83,6 +78,6 @@ jobs:
           -H "Authorization: Bearer ${{secrets.DOKPLOY_TOKEN}}" \
           -H "Content-Type: application/json" \
           -d '{
-            "applicationId": "${{secrets.BACKEND_APPLICATION_ID}}"
+            "applicationId": "${{secrets.BACKEND_UAT_APPLICATION_ID}}"
           }')
           echo "Reload HTTP Status Code: $reload_response"
