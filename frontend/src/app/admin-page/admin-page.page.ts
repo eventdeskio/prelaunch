@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/angular/standalone';
 import { AdminService } from '../service/adminservice'; 
-import { HttpClientModule } from '@angular/common/http';// Import ToastrService
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-page',
@@ -14,29 +14,37 @@ import { HttpClientModule } from '@angular/common/http';// Import ToastrService
   providers: [AdminService]
 })
 export class AdminPagePage implements OnInit {
-  isAuthenticated = true;
+  isAuthenticated = false;
   username = '';
   password = '';
-  private readonly adminUsername = 'admin';
-  private readonly adminPassword = '12345';
   sampleData: any[] = [];
   page = 1;
   limit = 10;
 
-  constructor(
-    private adminService: AdminService,
-  ) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit() { 
-    this.fetchResumes();
+    const authStatus = localStorage.getItem('isAuthenticated');
+    if (authStatus === 'true') {
+      this.isAuthenticated = true;
+      this.fetchResumes();
+    }
   }
 
   authenticate() {
-    if (this.username === this.adminUsername && this.password === this.adminPassword) {
-      this.isAuthenticated = true;
-    } else {
-      alert('Invalid Credentials');
-    }
+    let credentials = {
+      "username": this.username, 
+      "password": this.password
+    };
+
+    this.adminService.auth(credentials).subscribe((res: any) => {
+      console.log(res);
+      if (res === true) {
+        this.isAuthenticated = true;
+        localStorage.setItem('isAuthenticated', 'true'); 
+        this.fetchResumes();
+      }
+    });
   }
 
   fetchResumes() {
@@ -57,7 +65,11 @@ export class AdminPagePage implements OnInit {
     );
   }
 
-  // Pagination Methods
+  logout() {
+    this.isAuthenticated = false;
+    localStorage.removeItem('isAuthenticated'); 
+  }
+
   nextPage() {
     this.page++;
     this.fetchResumes();

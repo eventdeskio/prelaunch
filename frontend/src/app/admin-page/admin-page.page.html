@@ -3,9 +3,12 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Admin Login</ion-title>
+       
       </ion-toolbar>
     </ion-header>
-
+   
+    
+    
     <div class="login-form">
       <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>
       <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
@@ -16,7 +19,12 @@
   <div *ngIf="isAuthenticated">
     <ion-header>
       <ion-toolbar>
+        <div class="tool">
         <ion-title>Admin Page</ion-title>
+        <ion-button *ngIf="isAuthenticated" (click)="logout()">
+          Logout
+        </ion-button>
+      </div>
       </ion-toolbar>
     </ion-header>
 

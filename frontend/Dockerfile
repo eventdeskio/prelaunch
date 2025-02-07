@@ -1,7 +1,7 @@
 FROM node:18-alpine AS build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --no-cache
+RUN  npm i --legacy-peer-deps
 COPY . .
 RUN npm run build --prod --verbose
 

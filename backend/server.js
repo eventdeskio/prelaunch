@@ -69,6 +69,23 @@ const drive = google.drive({ version: "v3", auth: oauth2Client });
 const FOLDER_ID = process.env.FOLDER_TO_SAVE;
 
 
+app.post('/check' , (req,res)=>{
+  try{
+    let uname = req.body.username.trim();
+    let pass = req.body.password.trim();  
+    if(uname === process.env.USERNAME1.trim() && pass === process.env.PASSWORD.trim()){
+      console.log("in")
+      return res.status(200).send(true)
+    }
+    else{
+      return res.status(401).send(false)
+    }
+  }
+  catch(err){
+    console.log(err)
+    return res.status(500).send("Internal Server Error !")
+  }
+})
 
 app.get("/health", (req, res) => {
   logger.info("Req came on Health route");
@@ -222,6 +239,17 @@ app.post("/savedetails", async (req, res) => {
   }
 });
 
+
+app.post("/saveEmail" , async(req,res)=>{
+  try{
+    const client = await pool.connect();
+
+  }
+  catch(err){
+console.log(err)
+return res.status(500).send("Internal Server Error")
+  }
+})
 
 app.get("/getlist", async (req, res) => {
   const client = await pool.connect();

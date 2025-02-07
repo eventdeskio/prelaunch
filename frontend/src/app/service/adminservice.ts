@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root' 
 })
+
 export class AdminService {
   private apiUrl = window.location.origin.includes('localhost') ? 'http://localhost:5000':'https://api.eventdesk.io'; 
 
@@ -18,6 +19,10 @@ export class AdminService {
       .set('limit', limit.toString());
     console.log(this.apiUrl, window.location.origin,)
     return this.http.get<any>(`${this.apiUrl}/getlist`, { params });
+  }
+
+  auth(inp:any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/check`, inp);
   }
 
   uploadFile(file: File): Observable<any> {
