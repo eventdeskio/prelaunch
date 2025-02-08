@@ -1,19 +1,21 @@
 .title {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--primary);
 }
 
-.application-image {
+.application-image{
   width: 30vw;
 }
 
 .navitem {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--grey);
+
 }
 
 .padding {
   overflow-y: auto;
+  overflow-x: hidden;
   background: url(../../assets/application-Background.png);
   background-size: cover;
 }
@@ -24,16 +26,21 @@
   background: var(--primary-light);
   padding: 6%;
   border-radius: 10px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--grey);
+
 }
 
 .form-control {
   width: 100%;
-  padding: 12px;
+  padding: 3%;
   border-radius: 8px;
   border: 1px solid #ddd;
   transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-control::placeholder {
+  font-size: 0.8rem; /* Adjust size as needed */
 }
 
 .application-link:hover {
@@ -48,6 +55,7 @@
   align-items: center;
   padding-left: 5%;
   padding-top: 3%;
+
 }
 
 .right-container {
@@ -71,32 +79,39 @@ h5 {
   font-size: medium;
 }
 
-.final-section-context {
-  font-family: "Poppins", sans-serif;
+.final-section-context{
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   padding-left: 12%;
   padding-right: 12%;
   margin-top: 4%;
 }
 
+
 .form-group {
   display: flex;
   gap: 10px;
   padding: 1%;
   font-size: small;
+
 }
 
 ion-input,
 ion-textarea {
   width: 100%;
   margin-bottom: 10px;
+
 }
 
 .file-upload {
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
+
 }
+
+
+
 
 .classic-btn {
   display: flex;
@@ -109,7 +124,71 @@ ion-textarea {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   margin: auto;
+
 }
+
+.role-btn {
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.role-btn-outline-primary {
+  border: 1px solid #007bff;
+  color: #007bff;
+  background: transparent;
+}
+
+.role-btn-outline-primary:hover {
+  background: #007bff;
+  color: white;
+}
+
+.role-btn-primary {
+  background: #007bff;
+  border: none;
+}
+
+.role-btn-primary:hover {
+  background: #0056b3;
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+  // .left-container {
+  //     display: none;
+  // }
+
+  .final-section-context{
+      margin-top: 10%;
+  }
+
+  .right-container {
+      padding-left: 10%;
+      padding-right: 10%;
+      padding-top: 5%;
+  }
+  .left-container {
+      padding-left: 10%;
+      padding-right: 10%;
+      padding-top: 5%;
+      text-align: center;
+  }
+
+  .form-container {
+      max-width: 80vw;
+      font-size: 0.8rem;
+  }
+
+  .form-control::placeholder {
+      font-size: 0.7rem; /* Adjust size as needed */
+  }
+}
+
 .loader {
   width: 18px;
   height: 18px;
@@ -121,40 +200,4 @@ ion-textarea {
   margin-left: 10px;
   margin-top: 2px;
   animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  // .left-container {
-  //     display: none;
-  // }
-
-  .final-section-context {
-    margin-top: 10%;
-  }
-
-  .right-container {
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-  }
-  .left-container {
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    text-align: center;
-  }
-
-  .form-container {
-    max-width: 80vw;
-  }
 }

@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 
 export class AdminService {
-  private apiUrl = window.location.origin.includes('localhost') ? 'http://localhost:5000':'https://api.eventdesk.io'; 
+  private apiUrl = window.location.origin.includes('localhost') ? 'http://localhost:5000':'https://devb.eventdesk.io'; 
 
 
   constructor(private http: HttpClient) {}

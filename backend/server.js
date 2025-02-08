@@ -163,8 +163,20 @@ app.post("/savedetails", async (req, res) => {
       portfolio: Joi.string().uri().optional(),
       resume: Joi.string().uri().required(),
       message: Joi.string().max(1000).required(),
+      selectedRoles: Joi.array()
+      .items(
+        Joi.string().valid(
+          "User Research",
+          "Website Design",
+          "Content Writer",
+          "Marketing",
+          "UX Design",
+          "Others"
+        )
+      )
+      .default([])
     });
-
+   
     console.log(req.body);
 
     const { error, value } = schema.validate(req.body);
@@ -181,6 +193,7 @@ app.post("/savedetails", async (req, res) => {
         : value[key];
       return acc;
     }, {});
+    sanitizedData.selectedRoles = Array.isArray(sanitizedData.selectedRoles) ? sanitizedData.selectedRoles : [];
 
     const client = await pool.connect();
     try {
@@ -198,9 +211,9 @@ app.post("/savedetails", async (req, res) => {
 
       const query = `
         INSERT INTO resumes (
-          first_name, last_name, email, phone_number, city, state, linkedin, portfolio, resume, message, created_at
+          first_name, last_name, email, phone_number, city, state, linkedin, portfolio, resume, message,selectedRoles, created_at
         ) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12) 
         RETURNING id, created_at`;
 
       const values = [
@@ -214,6 +227,7 @@ app.post("/savedetails", async (req, res) => {
         sanitizedData.portfolio || null,  
         sanitizedData.resume,
         sanitizedData.message,
+        sanitizedData.selectedRoles,
         new Date() 
       ];
 
