@@ -1,3 +1,28 @@
+<header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-2 px-md-4 py-2">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand d-flex align-items-center" href="#" (click)="navigateToHome()">
+      <img src="../../assets/eventDeskLogo.png" alt="Logo" width="25" height="25" class="me-2" />
+      <span class="h5 fw-regular mb-0 fs-5">EventDesk.io</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <nav class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav pt-3 pt-md-0 gap-4">
+
+        <li class="nav-item"><a href="#feature" class="nav-link">Feature</a></li>
+        <li class="nav-item"><a href="#footer" class="nav-link">Contact</a></li>
+        <li class="nav-item"> <a
+            class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
+            (click)="navigateToApplication()">We're Hiring</a></li>
+
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
 <div class="ion-pad">
   <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
     style="background-image: url('YOUR_IMAGE_URL')">
@@ -7,33 +32,7 @@
           class="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
           style="background-image: url('YOUR_IMAGE_URL')">
           <div class="w-100 mw-75">
-            <header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-2">
-              <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand d-flex align-items-center" href="#" (click)="navigateToHome()">
-                  <img src="../../assets/eventDeskLogo.png" alt="Logo" width="25" height="25" class="me-2" />
-                  <span class="h5 fw-regular mb-0 fs-5">EventDesk.io</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <nav class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                  <ul class="navbar-nav pt-3 pt-md-0 gap-4">
-
-                    <li class="nav-item">
-                      <a href="#feature" class="nav-link">Feature</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#footer" class="nav-link">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
-                        (click)="navigateToApplication()">We're Hiring</a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </header>
 
             <div class="main-section">
               <h2 class="h2 pt-5 pt-md-1 fw-bold">
@@ -48,23 +47,16 @@
 
               <div
                 class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-row align-items-center justify-content-center gap-2"
-                *ngIf="!isDemoScheduled"
-              >
-                <input
-                  type="email"
-                  placeholder="Enter your email id"
-                  class="form-control"
-                  (input)="onEmailChange($event)"
-                />
-                <button
-                  class="classic-btn btn btn-primary w-md-auto"
-                  (click)="scheduleDemo()"
-                >
+                *ngIf="!isDemoScheduled">
+                <input type="email" placeholder="Enter your email id" class="form-control"
+                  (input)="onEmailChange($event)" />
+                <button class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo()">
                   Schedule a demo
                 </button>
               </div>
               <div *ngIf="isDemoScheduled" class="notification-container">
-                <div class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-column align-items-center justify-content-center gap-2">
+                <div
+                  class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-column align-items-center justify-content-center gap-2">
                   <h2 class="notification-title">You're All Set!</h2>
                   <p class="notification-message">
                     Thank you for scheduling a demo. Our team will reach out to you shortly with the next steps.
@@ -73,13 +65,14 @@
               </div>
 
               <!-- Swiper Container -->
-              <swiper-container slides-per-view="1" loop="true" autoplay-delay="2000"
+              <swiper-container slides-per-view="1" loop="true" autoplay-delay="4000"
                 autoplay-disable-on-interaction="false" navigation="true" class="swiper-container pt-5 p-1 p-md-5">
                 <swiper-slide *ngFor="let image of featureimages">
                   <p>{{image.context}}</p>
                   <img [src]="image.imagesrc" alt="Event Image" class="carousel-image" />
                 </swiper-slide>
               </swiper-container>
+
             </div>
 
             <section id="feature" class="features-section mt-5 row g-3">
@@ -120,7 +113,7 @@
               </div>
             </section>
 
-            <section class="mt-5 bg-light p-4 rounded">
+            <section class="mt-5 p-4 rounded">
               <h4 class="h4 fw-bold">
                 Plan and manage your events anytime, anywhere!
               </h4>
@@ -150,7 +143,7 @@
               </div> -->
 
               <div class="device-carousel">
-                <swiper-container effect="cards" grabCursor="true" pagination="true" autoplay-delay="2000"
+                <swiper-container effect="cards" grabCursor="true" pagination="true" autoplay-delay="4000"
                   autoplay-disable-on-interaction="false" class="device-swiper-container">
                   <swiper-slide *ngFor="let image of deviceImages">
                     <div class="device-carousel-card">
@@ -163,6 +156,7 @@
                   </swiper-slide>
                 </swiper-container>
               </div>
+
             </section>
 
             <section class="final-section-context">
@@ -178,10 +172,11 @@
                 life.
               </h6>
             </section>
-            <app-prelaunch-footer id="footer"></app-prelaunch-footer>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+  <app-prelaunch-footer id="present-footer"></app-prelaunch-footer>
 </div>

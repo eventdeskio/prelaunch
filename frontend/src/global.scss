@@ -51,7 +51,7 @@
     --primary: #2F63D3; /* Custom Primary Color */
     --primary-light: rgba(47, 99, 211,0.2);
     --secondary: #FDBA09; /* Custom Secondary Color */
-    --teritary: #D2459B;
+    --teritary: #FADAE5;
     --fontcolor: #061C3D;
     --success: #2A9D8F;
     --warning: #E9C46A;
@@ -65,3 +65,20 @@ body {
 font-family: 'Poppins', sans-serif;
 }
   
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--grey);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}

@@ -6,6 +6,24 @@
     box-shadow: none;
 }
 
+.navbar-toggler-icon {
+    transition: transform 0.3s ease;
+    border: none;
+    background-image: url('../../assets/menubar.svg'); /* Custom icon */
+  }
+.navbar-toggler.collapsed .navbar-toggler-icon {
+    transform: rotate(360deg); /* Rotate the icon when collapsed */
+}
+
+.navbar-toggler{
+    border: none;
+}
+
+.navbar-toggler:focus{
+    text-decoration: none;
+    box-shadow: none;
+}
+
 .main-section {
     background-image: url(../../assets/mainbg.png);
     background-size: cover;

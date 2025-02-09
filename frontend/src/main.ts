@@ -13,7 +13,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideAnimations(), 
+    // provideAnimations(), 
     provideToastr(), 
   ],
 });
