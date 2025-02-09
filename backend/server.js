@@ -150,6 +150,75 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
+
+app.post('/saveEmail' , async (req,res)=>{
+  try{
+    const schema = Joi.object({
+      email: Joi.string().email().required(),
+    });
+
+    const { error, value } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        error: "Invalid input",
+        details: error.details[0].message
+      });
+    }
+
+    const sanitizedData = Object.keys(value).reduce((acc, key) => {
+      acc[key] = typeof value[key] === 'string'
+        ? DOMPurify.sanitize(value[key])
+        : value[key];
+      return acc;
+    }, {});
+
+
+    const client = await pool.connect();
+    try {
+      const emailCheckQuery = 'SELECT id FROM subscribers_list WHERE email = $1';
+      const emailCheckResult = await client.query(emailCheckQuery, [sanitizedData.email]);
+
+      if (emailCheckResult.rows.length > 0) {
+        return res.status(400).json({
+          error: "Email already exists",
+          message: "The provided email is already associated with another application."
+        });
+      }
+
+      await client.query('BEGIN');
+
+      const query = `
+        INSERT INTO subscribers_list (
+           email, subscribed_at
+        ) 
+        VALUES ($1, $2) 
+        RETURNING id, subscribed_at`;
+
+      const values = [
+        sanitizedData.email,
+        new Date() 
+      ];
+
+      const result = await client.query(query, values);
+      await client.query('COMMIT');
+
+      res.status(201).json({
+        created:true,
+        message: "Subsribed successfully",
+        id: result.rows[0].id
+      });
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+  catch(err){
+    console.log(err)
+  }
+})
+
 app.post("/savedetails", async (req, res) => {
   try {
     const schema = Joi.object({
@@ -254,16 +323,7 @@ app.post("/savedetails", async (req, res) => {
 });
 
 
-app.post("/saveEmail" , async(req,res)=>{
-  try{
-    const client = await pool.connect();
 
-  }
-  catch(err){
-console.log(err)
-return res.status(500).send("Internal Server Error")
-  }
-})
 
 app.get("/getlist", async (req, res) => {
   const client = await pool.connect();

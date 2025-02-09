@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 import { PrelaunchFooterComponent } from '../prelaunch-footer/prelaunch-footer.component';
 import { ToastrService } from 'ngx-toastr';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 register();
 
 @Component({
@@ -20,11 +24,13 @@ register();
     FormsModule,
     IonicModule,
     FooterComponent,
+    HttpClientModule,
     PrelaunchFooterComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PrelaunchPagePage implements OnInit {
+  private apiUrl = environment.apiUrl;
   featureimages: any[] = [
     {
       imagesrc: '../../assets/1 3.png',
@@ -61,11 +67,21 @@ export class PrelaunchPagePage implements OnInit {
     },
   ];
   emailText: string = '';
+  isDemoScheduled:boolean=false;
 
-  constructor(private route: Router, private toastr: ToastrService) {}
+  constructor(private route: Router,  private http: HttpClient,private toastr: ToastrService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (localStorage.getItem('demoScheduled') === 'true') {
+      this.isDemoScheduled = true;
+    }
+  }
 
+   saveEmail(data: any): Observable<any> {
+     
+      return this.http.post<any>(`${this.apiUrl}/saveEmail`, data);
+    }
+  
   onEmailChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.emailText = inputElement.value;
@@ -78,9 +94,24 @@ export class PrelaunchPagePage implements OnInit {
       this.toastr.error('Invalid email address. Please enter a valid email.');
       return;
     }
+    let data = {
+      email:this.emailText
+    }
+    this.saveEmail(data).subscribe(
+      (response) => {
+        this.toastr.success('Demo Scheduled Successfully!');
+        localStorage.setItem('demoScheduled', 'true');
+        localStorage.setItem('userEmail', this.emailText);
+  
+        this.isDemoScheduled = true;
+      },
+      (error) => {
+        this.toastr.error(`${error}`);
 
+        console.error('Error saving details:', error);
+      }
+    );
     console.log('Entered Email:', this.emailText);
-    this.toastr.success('Demo Scheduled Successfully!');
   }
 
   navigateToApplication() {

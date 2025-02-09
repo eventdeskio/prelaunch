@@ -78,6 +78,7 @@
 
               <div
                 class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-row align-items-center justify-content-center gap-2"
+                *ngIf="!isDemoScheduled"
               >
                 <input
                   type="email"
@@ -91,6 +92,14 @@
                 >
                   Schedule a demo
                 </button>
+              </div>
+              <div *ngIf="isDemoScheduled" class="notification-container">
+                <div class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-column align-items-center justify-content-center gap-2">
+                  <h2 class="notification-title">You're All Set!</h2>
+                  <p class="notification-message">
+                    Thank you for scheduling a demo. Our team will reach out to you shortly with the next steps.
+                  </p>
+                </div>
               </div>
 
               <!-- Swiper Container -->
