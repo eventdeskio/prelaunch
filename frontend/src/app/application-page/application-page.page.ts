@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-application-page',
   templateUrl: './application-page.page.html',
@@ -44,9 +44,7 @@ import { Observable } from 'rxjs';
 export class ApplicationPagePage implements OnInit {
   ngOnInit() {}
 
-  private apiUrl = window.location.origin.includes('localhost')
-    ? 'http://localhost:5000'
-    : 'https://devb.eventdesk.io';
+  private apiUrl = environment.apiUrl;
 
   jobForm: FormGroup;
   selectedFile: any;
