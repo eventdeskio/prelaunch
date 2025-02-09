@@ -1,52 +1,25 @@
 <div class="ion-pad">
-  <div
-    class="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
-    style="background-image: url('YOUR_IMAGE_URL')"
-  >
+  <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
+    style="background-image: url('YOUR_IMAGE_URL')">
     <div class="w-100 mw-75">
       <div class="ion-pad">
         <div
           class="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
-          style="background-image: url('YOUR_IMAGE_URL')"
-        >
+          style="background-image: url('YOUR_IMAGE_URL')">
           <div class="w-100 mw-75">
-            <header
-              class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-2"
-            >
-              <div
-                class="container-fluid d-flex justify-content-between align-items-center"
-              >
-                <a
-                  class="navbar-brand d-flex align-items-center"
-                  href="#"
-                  (click)="navigateToHome()"
-                >
-                  <img
-                    src="../../assets/eventDeskLogo.png"
-                    alt="Logo"
-                    width="25"
-                    height="25"
-                    class="me-2"
-                  />
+            <header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-2">
+              <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-flex align-items-center" href="#" (click)="navigateToHome()">
+                  <img src="../../assets/eventDeskLogo.png" alt="Logo" width="25" height="25" class="me-2" />
                   <span class="h5 fw-regular mb-0 fs-5">EventDesk.io</span>
                 </a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNav"
-                >
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <nav
-                  class="collapse navbar-collapse justify-content-end"
-                  id="navbarNav"
-                >
+                <nav class="collapse navbar-collapse justify-content-end" id="navbarNav">
                   <ul class="navbar-nav pt-3 pt-md-0 gap-4">
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">About</a>
-                    </li>
+
                     <li class="nav-item">
                       <a href="#feature" class="nav-link">Feature</a>
                     </li>
@@ -54,11 +27,8 @@
                       <a href="#footer" class="nav-link">Contact</a>
                     </li>
                     <li class="nav-item">
-                      <a
-                        class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
-                        (click)="navigateToApplication()"
-                        >We're Hiring</a
-                      >
+                      <a class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
+                        (click)="navigateToApplication()">We're Hiring</a>
                     </li>
                   </ul>
                 </nav>
@@ -77,38 +47,20 @@
               </p>
 
               <div
-                class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-row align-items-center justify-content-center gap-2"
-              >
-                <input
-                  type="email"
-                  placeholder="Enter your email id"
-                  class="form-control"
-                  (input)="onEmailChange($event)"
-                />
-                <button
-                  class="classic-btn btn btn-primary w-md-auto"
-                  (click)="scheduleDemo()"
-                >
+                class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
+                <input type="email" placeholder="Enter your email id" class="form-control"
+                  (input)="onEmailChange($event)" />
+                <button class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo()">
                   Schedule a demo
                 </button>
               </div>
 
               <!-- Swiper Container -->
-              <swiper-container
-                slides-per-view="1"
-                loop="true"
-                autoplay-delay="3000"
-                autoplay-disable-on-interaction="false"
-                pagination="true"
-                class="swiper-container pt-5 p-1 p-md-5"
-              >
+              <swiper-container slides-per-view="1" loop="true" autoplay-delay="2000"
+                autoplay-disable-on-interaction="false" navigation="true" class="swiper-container pt-5 p-1 p-md-5">
                 <swiper-slide *ngFor="let image of featureimages">
                   <p>{{image.context}}</p>
-                  <img
-                    [src]="image.imagesrc"
-                    alt="Event Image"
-                    class="carousel-image"
-                  />
+                  <img [src]="image.imagesrc" alt="Event Image" class="carousel-image" />
                 </swiper-slide>
               </swiper-container>
             </div>
@@ -118,14 +70,8 @@
                 Every aspect of event management, streamlined
               </h4>
               <div class="col-md-4">
-                <div
-                  class="feature-card bg-primary bg-opacity-10 rounded shadow-sm"
-                >
-                  <img
-                    src="../../assets/Taskmanagementool.png"
-                    alt="Task Management Tool"
-                    class="featureimage"
-                  />
+                <div class="feature-card bg-primary bg-opacity-10 rounded shadow-sm">
+                  <img src="../../assets/Taskmanagementool.png" alt="Task Management Tool" class="featureimage" />
                   <h3 class="fw-medium sub-title">Task Management Tool</h3>
                   <p class="feature-title text-secondary small">
                     Keep your event on track with intuitive task management.
@@ -135,14 +81,8 @@
               </div>
 
               <div class="col-md-4">
-                <div
-                  class="feature-card bg-warning bg-opacity-10 rounded shadow-sm"
-                >
-                  <img
-                    src="../../assets/roleandcollab.png"
-                    alt="Roles and Collaboration"
-                    class="featureimage"
-                  />
+                <div class="feature-card bg-warning bg-opacity-10 rounded shadow-sm">
+                  <img src="../../assets/roleandcollab.png" alt="Roles and Collaboration" class="featureimage" />
                   <h3 class="fw-medium sub-title">Roles and Collaboration</h3>
                   <p class="feature-title text-secondary small">
                     Vendors collaborate with providers, event planners organize
@@ -152,14 +92,8 @@
               </div>
 
               <div class="col-md-4">
-                <div
-                  class="feature-card bg-danger bg-opacity-10 rounded shadow-sm"
-                >
-                  <img
-                    src="../../assets/magicinvite.png"
-                    alt="Magic Invite Page"
-                    class="featureimage"
-                  />
+                <div class="feature-card bg-danger bg-opacity-10 rounded shadow-sm">
+                  <img src="../../assets/magicinvite.png" alt="Magic Invite Page" class="featureimage" />
                   <h3 class="fw-medium sub-title">Magic Invite Page</h3>
                   <p class="feature-title text-secondary small">
                     Every guest receives a personalized, static webpage with
@@ -174,11 +108,10 @@
                 Plan and manage your events anytime, anywhere!
               </h4>
 
-              <div class="device-carousel">
+              <!-- <div class="device-carousel">
                 <swiper-container
                   slides-per-view="1"
-                  loop="true"
-                  autoplay-delay="3000"
+                  autoplay-delay="2000"
                   autoplay-disable-on-interaction="false"
                   pagination="true"
                   class="device-swiper-container p-5"
@@ -190,6 +123,21 @@
                         alt="Event Image"
                         class="device-carousel-image"
                       />
+                      <div class="device-carousel-content">
+                        <h6 class="fw-bold">{{image.title}}</h6>
+                        <p class="text-secondary">{{image.context}}</p>
+                      </div>
+                    </div>
+                  </swiper-slide>
+                </swiper-container>                
+              </div> -->
+
+              <div class="device-carousel">
+                <swiper-container effect="cards" grabCursor="true" pagination="true" autoplay-delay="2000"
+                  autoplay-disable-on-interaction="false" class="device-swiper-container">
+                  <swiper-slide *ngFor="let image of deviceImages">
+                    <div class="device-carousel-card">
+                      <img [src]="image.imagesrc" alt="Event Image" class="device-carousel-image" />
                       <div class="device-carousel-content">
                         <h6 class="fw-bold">{{image.title}}</h6>
                         <p class="text-secondary">{{image.context}}</p>

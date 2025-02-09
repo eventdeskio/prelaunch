@@ -1,12 +1,12 @@
-.ion-pad{
+.ion-pad {
     overflow-x: auto;
 }
 
-.navbar{
+.navbar {
     box-shadow: none;
 }
 
-.main-section{
+.main-section {
     background-image: url(../../assets/mainbg.png);
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,24 +16,38 @@
 
 }
 
-.title{
+.title {
     font-family: 'Poppins', sans-serif;
     color: var(--primary);
 }
 
-.navitem{
+.navitem {
     font-family: 'Poppins', sans-serif;
     color: var(--grey);
 
 }
-  
-.form-control{
+
+.form-control {
     width: 50%;
 }
 
-.carousel-image{
+
+
+.carousel-image {
     width: 40vw;
 }
+
+::ng-deep .swiper-pagination-bullet {
+    width: 8px; // Reduce dot size
+    height: 8px;
+    margin: 3px; // Adjust spacing
+    background-color: #ccc; // Change dot color
+  }
+  
+  ::ng-deep .swiper-pagination-bullet-active {
+    background-color: #007bff; // Change active dot color
+    transform: scale(1.2); // Slightly enlarge active dot
+  }
 
 .classic-btn {
     border-left: 4px solid var(--secondary);
@@ -60,7 +74,7 @@
 
 .application-link:hover {
     color: var(--primary);
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -69,8 +83,8 @@
     display: flex;
     justify-content: center;
     // align-items: center;
-    align-items: stretch; 
-    margin:10%;
+    align-items: stretch;
+    margin: 10%;
 }
 
 .features-section .col-md-4 {
@@ -110,18 +124,18 @@
     border-top: 4px solid #dc3545;
 }
 
-.sub-title{
+.sub-title {
     font-size: large;
 }
 
-.feature-title{
+.feature-title {
     font-size: small;
 }
 
 
 /* Ensure the outer container (background) remains static */
 .device-carousel {
-    background: url(../../assets/deviceCarouselBg.png);
+
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
@@ -131,20 +145,24 @@
     font-family: 'Poppins', sans-serif;
     margin-left: 7%;
     margin-right: 7%;
-    margin-top:3%;
+    margin-top: 3%;
 }
 
 /* Swiper container should be transparent */
 .device-swiper-container {
-    
+
     width: 100%;
     max-width: 800px;
-    // padding: 20px;
+    cursor: pointer;
 }
 
 /* Individual slides should have no background */
 .device-carousel-card {
     // background: linear-gradient(135deg, #F8F9FA, #EAECEF); 
+    background: url(../../assets/deviceCarouselBg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    // background-color: wheat;
     display: flex;
     align-items: center;
     padding: 15px;
@@ -173,21 +191,22 @@
 
 .device-carousel-content p {
     font-size: 1rem;
-    color: #6c757d; /* Bootstrap's text-secondary */
+    color: #6c757d;
+    /* Bootstrap's text-secondary */
 }
 
-.final-section-context{
+.final-section-context {
     font-family: 'Poppins', sans-serif;
     padding-left: 7%;
     padding-right: 7%;
     margin-top: 4%;
 }
 
-  
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .form-control{
+    .form-control {
         width: 75%;
     }
 
