@@ -1,5 +1,5 @@
 <div>
-  <div *ngIf="!isAuthenticated" class="auth-container">
+  <!-- <div *ngIf="!isAuthenticated" class="auth-container">
     <ion-header>
       <ion-toolbar>
         <ion-title>Admin Login</ion-title>
@@ -14,9 +14,46 @@
       <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
       <ion-button expand="full" (click)="authenticate()">Login</ion-button>
     </div>
+  </div> -->
+  <div *ngIf="!isAuthenticated" class="auth-container">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Admin Login</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Please enter your credentials to continue.</p>
+  
+        <ion-input placeholder="Username" [(ngModel)]="username" style="display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fafafa;"></ion-input>
+        <ion-input placeholder="Password" type="password" [(ngModel)]="password" style="display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fafafa;"></ion-input>
+  
+        <ion-button expand="full" (click)="authenticate()" style="  margin-top: 15px;
+        width: 100%;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;">Login</ion-button>
+      </div>
+    </div>
   </div>
-
-  <div *ngIf="isAuthenticated">
+  
+  <div *ngIf="isAuthenticated" class="toscroll" >
     <ion-header>
       <ion-toolbar>
         <div class="tool">
@@ -42,6 +79,7 @@
             <th>Resume</th>
             <th>LinkedIn</th>
             <th>Portfolio</th>
+            <!-- <th>Selected Roles</th> -->
           </tr>
         </thead>
         <tbody>
@@ -55,6 +93,8 @@
             <td><a [href]="application.resume" target="_blank">Resume</a></td>
             <td><a [href]="application.linkedin" target="_blank">LinkedIn</a></td>
             <td><a *ngIf="application.portfolio" [href]="application.portfolio" target="_blank">Portfolio</a></td>
+            <!-- <td>{{ application.selectedroles }}</td> -->
+
           </tr>
         </tbody>
       </table>

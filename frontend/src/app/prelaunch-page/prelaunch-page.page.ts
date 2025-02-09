@@ -7,7 +7,6 @@ import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
 import { PrelaunchFooterComponent } from '../prelaunch-footer/prelaunch-footer.component';
 import { ToastrService } from 'ngx-toastr';
-
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
