@@ -30,6 +30,12 @@
 .auth-container {
   text-align: center;
   padding: 20px;
+  background: linear-gradient(180deg,  
+    #c7d7f1, #e9e7dc, #e4d7e9, 
+    #dfd4eb, #cfd4f0, #b5c9f0);
+  background-size: 400% 400%;
+  animation: gradientBackground 12s ease infinite;
+  height: 100vh;
 }
 
 .login-wrapper {
@@ -85,6 +91,7 @@
     #dfd4eb, #cfd4f0, #b5c9f0);
   background-size: 300% 300%;
   animation: gradientAnimation 8s ease infinite;
+  border: 0.2px solid black;
 }
 .animated-gradient-bg1 {
   padding: 10px;
@@ -93,6 +100,9 @@
     #dfd4eb, #cfd4f0, #b5c9f0);
   background-size: 300% 300%;
   animation: gradientAnimation 8s ease infinite;
+  border: 0.2px solid black;
+  margin: 15px 15px 0px 15px;
+
 }
 /* Buttons */
 .custom-button {
