@@ -349,5 +349,38 @@ app.get("/getlist", async (req, res) => {
   }
 });
 
+app.put("/updateReviewed", async (req, res) => {
+  try {
+    const updates = req.body.updates; 
+    if (!Array.isArray(updates) || updates.length === 0) {
+      return res.status(400).json({ error: "Invalid input data" });
+    }
+
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+
+      for (const { id, reviewed } of updates) {
+        await client.query(
+          "UPDATE resumes SET reviewed = $1 WHERE id = $2",
+          [reviewed, id]
+        );
+      }
+
+      await client.query("COMMIT");
+      res.status(200).json({ success: true, message: "Review status updated successfully" });
+    } catch (error) {
+      await client.query("ROLLBACK");
+      throw error;
+    } finally {
+      client.release();
+    }
+  } catch (error) {
+    console.error("Error updating review status:", error);
+    res.status(500).json({ error: "Unable to update review status" });
+  }
+});
+
+
 
 app.listen(process.env.SERVER_PORT, () => console.log(`Server running on port ${process.env.SERVER_PORT}`));

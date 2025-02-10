@@ -1,164 +1,248 @@
-.auth-container {
-  display: flex;
-  flex-direction: column;
-  height: 130%;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-form {
-  width: 80%;
-  max-width: 400px;
+/* Header and Toolbar */
+.header {
+  background: #3880ff;
+  color: white;
+  padding: 15px;
   text-align: center;
+  border-radius: 8px 8px 0 0;
 }
-.tool{
+
+.toolbar {
   display: flex;
-}
-ion-input {
-  margin-bottom: 10px;
-}
-
-
-.container {
-  padding: 16px;
-}
-
-.form-container {
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
-
-  ion-input {
-    flex: 1;
-  }
-}
-
-.file-upload {
-  margin-bottom: 16px;
-
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-
-  input[type="file"] {
-    width: 100%;
-  }
-}
-
-.table-container {
-  margin-top: 32px;
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-}
-
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background: #f4f4f4;
-  font-weight: bold;
-}
-
-// =========================================
-.pagination{
-display: flex
-;
   justify-content: space-between;
-  margin-top: 20px;
   align-items: center;
-  height: 30%;
 }
 
-// ======================================
-
-.auth-container {
-  // height: 100vh;
+.tool {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
   align-items: center;
-  justify-content: center;
-  // background: #f4f4f4;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Authentication Section */
+.auth-container {
+  text-align: center;
+  padding: 20px;
 }
 
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  margin-top: 30px;
+  height: 80vh;
 }
 
 .login-card {
-  background: #ffffff;
-  padding: 2rem;
-  width: 350px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
   text-align: center;
 }
 
-.login-card h2 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  font-weight: 600;
+.custom-input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
 }
 
-.login-card p {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 20px;
+.login-button{
+  padding: 12px;
+  font-size: 1rem;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
 }
 
-// ion-input {
-  // display: block;
-  // width: 100%;
-  // margin: 10px 0;
-  // padding: 12px;
-  // font-size: 1rem;
-  // border: 1px solid #ddd;
-  // border-radius: 8px;
-  // background: #fafafa;
-// }
-
-ion-input:focus {
-  border-color: #007aff;
-  outline: none;
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-// ion-button {
-  // margin-top: 15px;
-  // width: 100%;
-  // font-size: 1rem;
-  // border-radius: 8px;
-  // transition: 0.3s ease-in-out;
-// }
-.toscroll{
-  height: 100vh;
-  width: 100vw;
+.animated-gradient-bg {
+  padding: 20px;
+  background: linear-gradient(135deg, 
+    #c7d7f1, #e9e7dc, #e4d7e9, 
+    #dfd4eb, #cfd4f0, #b5c9f0);
+  background-size: 300% 300%;
+  animation: gradientAnimation 8s ease infinite;
+}
+.animated-gradient-bg1 {
+  padding: 10px;
+  background: linear-gradient(135deg, 
+    #c7d7f1, #e9e7dc, #e4d7e9, 
+    #dfd4eb, #cfd4f0, #b5c9f0);
+  background-size: 300% 300%;
+  animation: gradientAnimation 8s ease infinite;
+}
+/* Buttons */
+.custom-button {
+  width: 10%;
+  padding: 12px;
+  font-size: 1rem;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
-ion-button:hover {
-  transform: translateY(-2px);
-  background: #007aff;
+.custom-button:hover {
+  // background: #3171e0;
+  transition: 0.3s ease-in-out;
+
+}
+
+/* Table Styling */
+.table-container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #f8f8f8;
+}
+
+/* Save Button */
+.save-button-container {
+  text-align: center;
+  margin-top: 20px;
+  display: flex
+  ;
+    align-items: center;
+    justify-content: end;
+}
+.custom-button-save{
+  width: 10%;
+  padding: 12px;
+  font-size: 1rem;
+  background: #42d96b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 1.2rem;
+}
+
+html, body {
+  height: auto;
+  overflow: auto;
+}
+
+.toscroll {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+// =============================
+
+
+/* Wrapper for toggle switch */
+.toggler-wrapper.style-24 {
+  width: 90px;
+  display: inline-block;
+  position: relative;
+}
+
+/* Hide the default checkbox */
+.toggler-wrapper.style-24 input[type="checkbox"] {
+  display: none;
+}
+
+/* Toggle slider background */
+.toggler-wrapper.style-24 .toggler-slider {
+  width: 80px;
+  height: 30px;
+  background-color: #eb4f37;
+  border: 2px solid #eb4f37;
+  position: relative;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Knob inside the toggle */
+.toggler-wrapper.style-24 .toggler-knob {
+  width: 37.5px;
+  height: 25px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+/* "Off" state text inside knob */
+.toggler-wrapper.style-24 .toggler-knob:after {
+  content: 'No';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 75%;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+/* When checked, change border color */
+.toggler-wrapper.style-24 input[type="checkbox"]:checked + .toggler-slider {
+  border-color: #44cc66;
+  background-color: #44cc66;
+}
+
+/* When checked, move knob to the right */
+.toggler-wrapper.style-24 input[type="checkbox"]:checked + .toggler-slider .toggler-knob {
+  left: calc(100% - 37.5px);
+}
+
+/* Change text inside knob to "On" when checked */
+.toggler-wrapper.style-24 input[type="checkbox"]:checked + .toggler-slider .toggler-knob:after {
+  content: 'Yes';
 }

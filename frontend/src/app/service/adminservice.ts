@@ -46,4 +46,8 @@ export class AdminService {
     };
     return this.http.post<any>(`${this.apiUrl}/savedetails`, details);
   }
+
+  updateReviewedStatus(updates: { id: number; reviewed: boolean }[]): Observable<any> {
+    return this.http.put(`${this.apiUrl}/updateReviewed`, { updates });
+  }
 }
