@@ -94,7 +94,15 @@ Guidelines:
 - Use folder structures that reflect modular boundaries.
   **Example:**
 
-src/ components/ Header/ ├── Header.js ├── Header.test.js Footer/ ├── Footer.js ├── Footer.test.js
+
+src/  
+&nbsp;&nbsp;&nbsp;&nbsp;components/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header.test.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer.test.js  
 
 Assign clear ownership of modules to team members to reduce overlaps.
 4. Conflict Prevention Tips
