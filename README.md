@@ -92,17 +92,10 @@ Guidelines:
 - Split large components or classes into smaller, single-responsibility modules.
 - Ensure each module has a clearly defined purpose.
 - Use folder structures that reflect modular boundaries.
-  
-Example:
+  **Example:**
 
-src/
-  components/
-    Header/
-      Header.js
-      Header.test.js
-    Footer/
-      Footer.js
-      Footer.test.js
+src/ components/ Header/ ├── Header.js ├── Header.test.js Footer/ ├── Footer.js ├── Footer.test.js
+
 Assign clear ownership of modules to team members to reduce overlaps.
 4. Conflict Prevention Tips
 Small, Incremental Changes:
