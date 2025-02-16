@@ -18,8 +18,6 @@
 - Merge feature branches back into `dev` using pull requests (PRs).
 - Never push directly to `dev` or `main`. Always use PRs.
 
----
-
 ### 2. Workflow Process
 
 #### Pull Latest Changes:
@@ -28,66 +26,73 @@ Always pull the latest changes from `dev` before starting any work:
 git checkout dev
 git pull origin dev
 
-####Create a New Branch:
+#### Create a New Branch:
 
 Branch off from dev using the naming convention:
 
-git checkout -b feature/feature-name
-Commit Frequently:
+- git checkout -b feature/feature-name
+
+#### Commit Frequently:
 
 Keep commits small and focused on a single change or feature.
 Use descriptive commit messages:
 
-feat: add user authentication using OAuth
-fix: resolve null pointer in dashboard component
-Push to Remote:
+- feat: add user authentication using OAuth
+- fix: resolve null pointer in dashboard component
+  
+**Push to Remote:**
 
-git push origin feature/feature-name
-Create a Pull Request (PR):
+- git push origin feature/feature-name
+  
+**Create a Pull Request (PR):**
 
-Ensure the PR is from feature/<name> to dev.
-Link related issues in the PR description.
-Assign at least one reviewer and do not merge your own PR.
-Code Review and Approval:
+- Ensure the PR is from feature/<name> to dev.
+- Link related issues in the PR description.
+- Assign at least one reviewer and do not merge your own PR.
 
-At least one approval required before merging.
-Address feedback promptly and push changes to the same branch.
-Sync with dev Before Merging:
+**Code Review and Approval:**
+
+- At least one approval required before merging.
+- Address feedback promptly and push changes to the same branch.
+- Sync with dev Before Merging:
 
 Before merging, sync with the latest dev to avoid conflicts:
+- git fetch origin dev
+- git merge origin/dev
+**Resolve any conflicts locally, test the build, and push again**.
 
-git fetch origin dev
-git merge origin/dev
-Resolve any conflicts locally, test the build, and push again.
-Merge and Delete Branch:
+**Merge and Delete Branch:**
 
 After approval, Squash and Merge the PR.
 Delete the feature branch from GitHub to keep the repo clean.
-3. Tricks to Avoid Merge Conflicts
-Trick #1: Short-Living Branches
+
+### 3. Tricks to Avoid Merge Conflicts
+
+#### Trick #1: Short-Living Branches
 Why: Long-living branches are prone to merge conflicts because the longer the branch exists, the more likely someone else will modify the same part of the code.
 Guidelines:
 Keep feature branches short-lived—preferably less than a day.
 Merge changes back to dev frequently.
 Example workflow:
+##### Create and work on feature branch
+- git checkout -b feature/new-ui-component
+- git add .
+- git commit -m "feat: add new UI component"
+- git push origin feature/new-ui-component
 
-# Create and work on feature branch
-git checkout -b feature/new-ui-component
-git add .
-git commit -m "feat: add new UI component"
-git push origin feature/new-ui-component
+##### Create Pull Request and merge back to dev quickly
+##### After approval:
+- git checkout dev
+- git pull origin dev
+- git branch -d feature/new-ui-component
 
-# Create Pull Request and merge back to dev quickly
-# After approval:
-git checkout dev
-git pull origin dev
-git branch -d feature/new-ui-component
-Trick #2: Small Modules
+#### Trick #2: Small Modules
 Why: Following the Single Responsibility Principle from SOLID design ensures that a class or module has only one reason to change. This reduces the likelihood of two developers editing the same file simultaneously.
 Guidelines:
-Split large components or classes into smaller, single-responsibility modules.
-Ensure each module has a clearly defined purpose.
-Use folder structures that reflect modular boundaries.
+- Split large components or classes into smaller, single-responsibility modules.
+- Ensure each module has a clearly defined purpose.
+- Use folder structures that reflect modular boundaries.
+  
 Example:
 
 src/
@@ -159,9 +164,6 @@ Creating a Branch:
 git checkout -b feature/new-ui-component
 Syncing with dev:
 
-bash
-Copy
-Edit
 git fetch origin dev
 git merge origin/dev
 Rebasing (Alternative to Merge):
@@ -172,6 +174,8 @@ Resolving Conflicts:
 git status
 git add <file>
 git commit
+
+---
 
 ## Overview
 This repository contains the prelaunch page for our upcoming Event Management website. The prelaunch page consists of two key sections:
