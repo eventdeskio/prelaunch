@@ -33,7 +33,6 @@
           style="background-image: url('YOUR_IMAGE_URL')">
           <div class="w-100 mw-75">
 
-
             <div class="main-section">
               <h2 class="h2 pt-5 pt-md-1 fw-bold">
                 A mobile-first, full-featured
@@ -47,14 +46,17 @@
 
               <div
                 class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-row align-items-center justify-content-center gap-2"
-                *ngIf="!isDemoScheduled">
+                >
                 <input type="email" placeholder="Enter your email id" class="form-control"
                   (input)="onEmailChange($event)" />
-                <button class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo()">
+                <button *ngIf="!isDemoScheduled" class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo('scheduleDemo')">
                   Schedule a demo
                 </button>
+                <button *ngIf="isDemoScheduled" class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo('scheduleDemo')">
+                  Reschedule 
+                </button>
               </div>
-              <div *ngIf="isDemoScheduled" class="notification-container">
+              <!-- <div *ngIf="isDemoScheduled" class="notification-container">
                 <div
                   class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-column align-items-center justify-content-center gap-2">
                   <h2 class="notification-title">You're All Set!</h2>
@@ -62,7 +64,7 @@
                     Thank you for scheduling a demo. Our team will reach out to you shortly with the next steps.
                   </p>
                 </div>
-              </div>
+              </div> -->
 
               <!-- Swiper Container -->
               <swiper-container slides-per-view="1" loop="true" autoplay-delay="4000"
@@ -179,4 +181,42 @@
     </div>
   </div>
   <app-prelaunch-footer id="present-footer"></app-prelaunch-footer>
+
+  
+<div class="modal" *ngIf="!termsAccepted && shouldShowTerms">
+  <!-- <div class="contents">
+  <h1>
+    Terms and conditions
+  </h1>
+  <button (click)="termsAccept()">Accept</button>
+</div> -->
+
+
+<div class="terms-container">
+  <h1>Terms and Conditions</h1>
+  <div class="terms-content">
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using Eventdesk’s event management platform, you agree to comply with these Terms and Conditions. If you do not agree, please refrain from using the service.</p>
+
+      <h2>2. User Responsibilities</h2>
+      <p>Users must provide accurate information when registering and using the platform. Misuse of the service, including fraudulent activity, unauthorized access, or violation of laws, is strictly prohibited.</p>
+
+      <!-- <h2>3. Payment & Refund Policy</h2>
+      <p>Payments for event bookings, ticket purchases, or premium features are non-refundable unless otherwise stated. Any disputes regarding transactions must be reported within 14 days.</p> -->
+
+      <h2>3. Intellectual Property</h2>
+      <p>All content, software, and branding related to the platform are owned by EventDesk or its licensors. Users may not copy, distribute, or modify any materials without explicit permission.</p>
+
+      <h2>4. Limitation of Liability</h2>
+      <p>EventDesk is not responsible for any damages, losses, or issues arising from the use of the platform, including but not limited to event cancellations, ticket disputes, or third-party actions.</p>
+
+      <h2>5. Privacy & Data Usage</h2>
+      <p>We collect and store user data in accordance with our Privacy Policy. By using the platform, you consent to our data practices, including the use of cookies and analytics for service improvement.</p>
+  </div>
+
+  <div class="btn-container">
+      <button class="accept-btn" (click)="termsAccept()">Accept</button>
+  </div>
+</div>
+</div>
 </div>

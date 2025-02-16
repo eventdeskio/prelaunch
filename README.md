@@ -59,6 +59,7 @@ Use descriptive commit messages:
 Before merging, sync with the latest dev to avoid conflicts:
 - git fetch origin dev
 - git merge origin/dev
+
 **Resolve any conflicts locally, test the build, and push again**.
 
 **Merge and Delete Branch:**
@@ -73,6 +74,7 @@ Why: Long-living branches are prone to merge conflicts because the longer the br
 Guidelines:
 Keep feature branches short-lived—preferably less than a day.
 Merge changes back to dev frequently.
+
 Example workflow:
 ##### Create and work on feature branch
 - git checkout -b feature/new-ui-component
@@ -105,36 +107,43 @@ src/
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer.test.js  
 
 Assign clear ownership of modules to team members to reduce overlaps.
-4. Conflict Prevention Tips
-Small, Incremental Changes:
+
+### 4. Conflict Prevention Tips
+#### Small, Incremental Changes:
 
 Break down large tasks into smaller, manageable chunks.
 Regularly push changes to avoid massive merges.
 Frequent Syncing:
 
 Regularly sync feature branches with the latest dev.
+
 Example:
 
-git fetch origin dev
-git merge origin/dev
-Clear Ownership:
+- git fetch origin dev
+- git merge origin/dev
+
+#### Clear Ownership:
 
 Assign team members ownership of specific modules or components.
 This reduces the chances of multiple people editing the same files.
-5. Testing and CI/CD
-Automated Tests:
+
+### 5. Testing and CI/CD
+#### Automated Tests:
 
 Ensure all code is covered by unit tests.
 Run tests locally before pushing.
-Continuous Integration:
+
+#### Continuous Integration:
 
 Implement CI pipelines that run tests and lint checks on every PR.
 Example tools: GitHub Actions, CircleCI, or Jenkins.
-No Failing Tests:
 
-Do not merge PRs with failing tests.
-6. Code Quality and Consistency
-Linting and Formatting:
+#### No Failing Tests:
+
+**Do not merge PRs with failing tests.**
+
+### 6. Code Quality and Consistency
+#### Linting and Formatting:
 
 Enforce consistent code style using tools like ESLint and Prettier.
 Include pre-commit hooks (e.g., using Husky) to run linters and tests:
@@ -144,37 +153,38 @@ Include pre-commit hooks (e.g., using Husky) to run linters and tests:
     "pre-commit": "npm run lint && npm test"
   }
 }
-Code Reviews:
+#### Code Reviews:
 
 Focus on logic, readability, maintainability, and security.
 Encourage constructive feedback and knowledge sharing.
-7. Documentation and Communication
-README Updates:
+
+### 7. Documentation and Communication
+#### README Updates:
 
 Update README.md if changes impact setup, usage, or deployment.
 Comments and Documentation:
 
 Document complex logic within the code.
 Update API docs and architectural diagrams as needed.
-Communication:
+#### Communication:
 
 Regular stand-ups and clear communication in team channels to avoid duplicate work.
-8. Example Git Commands
-Creating a Branch:
+### 8. Example Git Commands
+#### Creating a Branch:
 
 git checkout -b feature/new-ui-component
-Syncing with dev:
 
-git fetch origin dev
-git merge origin/dev
-Rebasing (Alternative to Merge):
+#### Syncing with dev:
 
-git pull --rebase origin dev
-Resolving Conflicts:
+- git fetch origin dev
+- git merge origin/dev
+- Rebasing (Alternative to Merge):
 
-git status
-git add <file>
-git commit
+#### Resolving Conflicts:
+
+- git status
+- git add <file>
+- git commit
 
 ---
 

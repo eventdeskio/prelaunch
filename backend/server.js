@@ -15,9 +15,8 @@ const {
   contentType,
   totalReqCounter,
 } = require("./monitoring");
-const responsetime = require('response-time')
+const responsetime = require("response-time");
 const { logger } = require("./logging");
- 
 
 dotenv.config();
 const app = express();
@@ -44,18 +43,16 @@ app.get("/metrics", async (req, res) => {
   res.send(metrics);
 });
 
-
 const upload = multer({ dest: "uploads/" });
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-  });
-  
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
@@ -68,24 +65,24 @@ const drive = google.drive({ version: "v3", auth: oauth2Client });
 
 const FOLDER_ID = process.env.FOLDER_TO_SAVE;
 
-
-app.post('/check' , (req,res)=>{
-  try{
+app.post("/check", (req, res) => {
+  try {
     let uname = req.body.username.trim();
-    let pass = req.body.password.trim();  
-    if(uname === process.env.USERNAME1.trim() && pass === process.env.PASSWORD.trim()){
-      console.log("in")
-      return res.status(200).send(true)
+    let pass = req.body.password.trim();
+    if (
+      uname === process.env.USERNAME1.trim() &&
+      pass === process.env.PASSWORD.trim()
+    ) {
+      console.log("in");
+      return res.status(200).send(true);
+    } else {
+      return res.status(401).send(false);
     }
-    else{
-      return res.status(401).send(false)
-    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error !");
   }
-  catch(err){
-    console.log(err)
-    return res.status(500).send("Internal Server Error !")
-  }
-})
+});
 
 app.get("/health", (req, res) => {
   logger.info("Req came on Health route");
@@ -117,14 +114,13 @@ app.get("/testdeployment", (req, res) => {
   }
 });
 
-
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const fileMetadata = {
-      name: req.file.originalname  ? req.file.originalname : '',
-      parents: [FOLDER_ID], 
+      name: req.file.originalname ? req.file.originalname : "",
+      parents: [FOLDER_ID],
     };
-    console.log(fileMetadata)
+    console.log(fileMetadata);
     const media = {
       mimeType: req.file.mimetype,
       body: fs.createReadStream(req.file.path),
@@ -136,23 +132,22 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       fields: "id, webViewLink, webContentLink",
     });
 
-    fs.unlinkSync(req.file.path); 
+    fs.unlinkSync(req.file.path);
 
     res.json({
-        fileId: file.data.id,
-        driveLink: file.data.webViewLink, 
-        directDownloadLink: file.data.webContentLink,
-        message: "File uploaded successfully",
-      });
+      fileId: file.data.id,
+      driveLink: file.data.webViewLink,
+      directDownloadLink: file.data.webContentLink,
+      message: "File uploaded successfully",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 });
 
-
-app.post('/saveEmail' , async (req,res)=>{
-  try{
+app.post("/saveEmail", async (req, res) => {
+  try {
     const schema = Joi.object({
       email: Joi.string().email().required(),
     });
@@ -161,63 +156,71 @@ app.post('/saveEmail' , async (req,res)=>{
     if (error) {
       return res.status(400).json({
         error: "Invalid input",
-        details: error.details[0].message
+        details: error.details[0].message,
       });
     }
 
     const sanitizedData = Object.keys(value).reduce((acc, key) => {
-      acc[key] = typeof value[key] === 'string'
-        ? DOMPurify.sanitize(value[key])
-        : value[key];
+      acc[key] =
+        typeof value[key] === "string"
+          ? DOMPurify.sanitize(value[key])
+          : value[key];
       return acc;
     }, {});
 
-
     const client = await pool.connect();
     try {
-      const emailCheckQuery = 'SELECT id FROM subscribers_list WHERE email = $1';
-      const emailCheckResult = await client.query(emailCheckQuery, [sanitizedData.email]);
-
+      const emailCheckQuery =
+        "SELECT id FROM subscribers_list WHERE email = $1";
+      const emailCheckResult = await client.query(emailCheckQuery, [
+        sanitizedData.email,
+      ]);
       if (emailCheckResult.rows.length > 0) {
-        return res.status(400).json({
-          error: "Email already exists",
-          message: "The provided email is already associated with another application."
+        const updateQuery = `
+          UPDATE subscribers_list 
+          SET count = count + 1 
+          WHERE email = $1 
+          RETURNING id, count
+        `;
+        const updateResult = await client.query(updateQuery, [sanitizedData.email]);
+    
+        return res.status(200).json({
+          updated: true,
+          message: "Email already exists, incremented count.",
+          id: updateResult.rows[0].id,
+          count: updateResult.rows[0].count
         });
       }
-
-      await client.query('BEGIN');
+    
+      await client.query("BEGIN");
 
       const query = `
-        INSERT INTO subscribers_list (
-           email, subscribed_at
-        ) 
-        VALUES ($1, $2) 
-        RETURNING id, subscribed_at`;
-
-      const values = [
-        sanitizedData.email,
-        new Date() 
-      ];
+  INSERT INTO subscribers_list (
+    email, subscribed_at, count
+  ) 
+  VALUES ($1, $2, 1) 
+  RETURNING id, subscribed_at, count
+`;
+      const values = [sanitizedData.email, new Date()];
 
       const result = await client.query(query, values);
-      await client.query('COMMIT');
+      await client.query("COMMIT");
 
       res.status(201).json({
-        created:true,
+        created: true,
         message: "Subsribed successfully",
-        id: result.rows[0].id
+        id: result.rows[0].id,
       });
     } catch (error) {
-      await client.query('ROLLBACK');
+      await client.query("ROLLBACK");
       throw error;
     } finally {
       client.release();
     }
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-    console.log(err)
-  }
-})
+});
 
 app.post("/savedetails", async (req, res) => {
   try {
@@ -225,7 +228,9 @@ app.post("/savedetails", async (req, res) => {
       firstName: Joi.string().max(100).required(),
       lastName: Joi.string().max(100).required(),
       email: Joi.string().email().required(),
-      phoneNumber: Joi.string().pattern(/^[0-9]{10}$/).required(),
+      phoneNumber: Joi.string()
+        .pattern(/^[0-9]{10}$/)
+        .required(),
       city: Joi.string().max(100).required(),
       state: Joi.string().max(100).required(),
       linkedin: Joi.string().uri().required(),
@@ -233,50 +238,56 @@ app.post("/savedetails", async (req, res) => {
       resume: Joi.string().uri().required(),
       message: Joi.string().max(1000).required(),
       selectedRoles: Joi.array()
-      .items(
-        Joi.string().valid(
-          "User Research",
-          "Website Design",
-          "Content Writer",
-          "Marketing",
-          "UX Design",
-          "Others"
+        .items(
+          Joi.string().valid(
+            "User Research",
+            "Website Design",
+            "Content Writer",
+            "Marketing",
+            "UX Design",
+            "Others"
+          )
         )
-      )
-      .default([])
+        .default([]),
     });
-   
+
     console.log(req.body);
 
     const { error, value } = schema.validate(req.body);
     if (error) {
       return res.status(400).json({
         error: "Invalid input",
-        details: error.details[0].message
+        details: error.details[0].message,
       });
     }
 
     const sanitizedData = Object.keys(value).reduce((acc, key) => {
-      acc[key] = typeof value[key] === 'string'
-        ? DOMPurify.sanitize(value[key])
-        : value[key];
+      acc[key] =
+        typeof value[key] === "string"
+          ? DOMPurify.sanitize(value[key])
+          : value[key];
       return acc;
     }, {});
-    sanitizedData.selectedRoles = Array.isArray(sanitizedData.selectedRoles) ? sanitizedData.selectedRoles : [];
+    sanitizedData.selectedRoles = Array.isArray(sanitizedData.selectedRoles)
+      ? sanitizedData.selectedRoles
+      : [];
 
     const client = await pool.connect();
     try {
-      const emailCheckQuery = 'SELECT id FROM resumes WHERE email = $1';
-      const emailCheckResult = await client.query(emailCheckQuery, [sanitizedData.email]);
+      const emailCheckQuery = "SELECT id FROM resumes WHERE email = $1";
+      const emailCheckResult = await client.query(emailCheckQuery, [
+        sanitizedData.email,
+      ]);
 
       if (emailCheckResult.rows.length > 0) {
         return res.status(400).json({
           error: "Email already exists",
-          message: "The provided email is already associated with another application."
+          message:
+            "The provided email is already associated with another application.",
         });
       }
 
-      await client.query('BEGIN');
+      await client.query("BEGIN");
 
       const query = `
         INSERT INTO resumes (
@@ -293,45 +304,43 @@ app.post("/savedetails", async (req, res) => {
         sanitizedData.city,
         sanitizedData.state,
         sanitizedData.linkedin,
-        sanitizedData.portfolio || null,  
+        sanitizedData.portfolio || null,
         sanitizedData.resume,
         sanitizedData.message,
         sanitizedData.selectedRoles,
-        new Date() 
+        new Date(),
       ];
 
       const result = await client.query(query, values);
-      await client.query('COMMIT');
+      await client.query("COMMIT");
 
       res.status(201).json({
-        created:true,
+        created: true,
         message: "Application submitted successfully",
-        applicationId: result.rows[0].id
+        applicationId: result.rows[0].id,
       });
     } catch (error) {
-      await client.query('ROLLBACK');
+      await client.query("ROLLBACK");
       throw error;
     } finally {
       client.release();
     }
   } catch (error) {
-    console.error('Error saving application:', error);
+    console.error("Error saving application:", error);
     res.status(500).json({
-      error: "Unable to process your application at this time"
+      error: "Unable to process your application at this time",
     });
   }
 });
 
-
-
-
 app.get("/getlist", async (req, res) => {
   const client = await pool.connect();
-  const { page = 1, limit = 10 } = req.query; 
+  const { page = 1, limit = 10 } = req.query;
   try {
     const offset = (page - 1) * limit;
-    const query = "SELECT * FROM resumes ORDER BY created_at DESC LIMIT $1 OFFSET $2";
-    
+    const query =
+      "SELECT * FROM resumes ORDER BY created_at DESC LIMIT $1 OFFSET $2";
+
     const { rows } = await client.query(query, [limit, offset]);
 
     res.json({
@@ -351,7 +360,7 @@ app.get("/getlist", async (req, res) => {
 
 app.put("/updateReviewed", async (req, res) => {
   try {
-    const updates = req.body.updates; 
+    const updates = req.body.updates;
     if (!Array.isArray(updates) || updates.length === 0) {
       return res.status(400).json({ error: "Invalid input data" });
     }
@@ -361,14 +370,16 @@ app.put("/updateReviewed", async (req, res) => {
       await client.query("BEGIN");
 
       for (const { id, reviewed } of updates) {
-        await client.query(
-          "UPDATE resumes SET reviewed = $1 WHERE id = $2",
-          [reviewed, id]
-        );
+        await client.query("UPDATE resumes SET reviewed = $1 WHERE id = $2", [
+          reviewed,
+          id,
+        ]);
       }
 
       await client.query("COMMIT");
-      res.status(200).json({ success: true, message: "Review status updated successfully" });
+      res
+        .status(200)
+        .json({ success: true, message: "Review status updated successfully" });
     } catch (error) {
       await client.query("ROLLBACK");
       throw error;
@@ -381,6 +392,6 @@ app.put("/updateReviewed", async (req, res) => {
   }
 });
 
-
-
-app.listen(process.env.SERVER_PORT, () => console.log(`Server running on port ${process.env.SERVER_PORT}`));
+app.listen(process.env.SERVER_PORT, () =>
+  console.log(`Server running on port ${process.env.SERVER_PORT}`)
+);

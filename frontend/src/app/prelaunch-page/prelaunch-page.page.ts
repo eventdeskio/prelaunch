@@ -1,4 +1,10 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,ChangeDetectorRef 
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import posthog from 'posthog-js';
+import { Subscription } from 'rxjs';
 register();
 
 @Component({
@@ -30,6 +38,7 @@ register();
 })
 export class PrelaunchPagePage implements OnInit {
   private apiUrl = environment.apiUrl;
+
   featureimages: any[] = [
     {
       imagesrc: '../../assets/1 3.png',
@@ -66,27 +75,83 @@ export class PrelaunchPagePage implements OnInit {
     },
   ];
   emailText: string = '';
-  isDemoScheduled:boolean=false;
+  isDemoScheduled: boolean = false;
+  sessionStartTime!: number;
+  private subscription: Subscription = new Subscription();
+  shouldShowTerms:boolean=false;
+  termsAccepted:boolean=false;
+  
 
-  constructor(private route: Router,  private http: HttpClient,private toastr: ToastrService) {}
+  constructor(
+    private route: Router,
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
+    console.log(localStorage.getItem("terms_accepted"))
+
+    if(localStorage.getItem("terms_accepted")!==null && localStorage.getItem("terms_accepted")==="true"){
+      console.log("insddnjdnjfn")
+      this.termsAccepted = true;
+
+    }
+    posthog.onFeatureFlags((e) => {
+      console.log(e)
+      if (posthog.isFeatureEnabled('terms_and_conditions')) {
+        this.shouldShowTerms = true;
+        this.changeDetector.detectChanges();
+      }
+    });
+    this.sessionStartTime = Date.now();
     if (localStorage.getItem('demoScheduled') === 'true') {
       this.isDemoScheduled = true;
+      let email: any;
+      email = localStorage.getItem('userEmail');
+      posthog.identify(email, {
+        name: '',
+        email: email,
+      });
+    }
+    console.log('test');
+    
+  }
+
+  termsAccept(){
+    this.termsAccepted = true;
+    localStorage.setItem("terms_accepted","true")
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  onScroll(event: Event) {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercentage = (scrollTop / docHeight) * 100;
+
+    console.log(`Scroll Percentage: ${scrollPercentage}%`);
+
+    if (scrollPercentage > 50) {
+      console.log('User scrolled 50%');
+      posthog.capture('scrolled_50_percent');
+    }
+    if (scrollPercentage > 90) {
+      console.log('User scrolled 90%');
+      posthog.capture('scrolled_90_percent');
     }
   }
 
-   saveEmail(data: any): Observable<any> {
-     
-      return this.http.post<any>(`${this.apiUrl}/saveEmail`, data);
-    }
-  
+  saveEmail(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/saveEmail`, data);
+  }
+
   onEmailChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.emailText = inputElement.value;
   }
 
-  scheduleDemo(): void {
+  scheduleDemo(buttonName: String): void {
     this.emailText = this.emailText.trim().toLowerCase();
 
     if (!this.isValidEmail(this.emailText)) {
@@ -94,18 +159,23 @@ export class PrelaunchPagePage implements OnInit {
       return;
     }
     let data = {
-      email:this.emailText
-    }
+      email: this.emailText,
+    };
+    posthog.capture('schedule_demo_clicked', {
+      action: buttonName,
+      email: this.emailText,
+      timestamp: new Date(),
+    });
     this.saveEmail(data).subscribe(
       (response) => {
         this.toastr.success('Demo Scheduled Successfully!');
         localStorage.setItem('demoScheduled', 'true');
         localStorage.setItem('userEmail', this.emailText);
-  
+
         this.isDemoScheduled = true;
       },
       (error) => {
-        this.toastr.error(`${error}`);
+        this.toastr.error(`${error.error.error}`);
 
         console.error('Error saving details:', error);
       }
@@ -144,5 +214,13 @@ export class PrelaunchPagePage implements OnInit {
   }
   navigateToHome() {
     this.route.navigate(['/']);
+  }
+  ngOnDestroy() {
+    const sessionDuration = (Date.now() - this.sessionStartTime) / 1000;
+    console.log(`Session duration: ${sessionDuration} seconds`);
+    posthog.capture('session_duration', { duration: sessionDuration });
+
+    // Unsubscribe if there are active subscriptions
+    this.subscription.unsubscribe();
   }
 }
