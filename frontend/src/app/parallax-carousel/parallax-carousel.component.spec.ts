@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FooterComponent } from './footer.component';
+import { ParallaxCarouselComponent } from './parallax-carousel.component';
 
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('ParallaxCarouselComponent', () => {
+  let component: ParallaxCarouselComponent;
+  let fixture: ComponentFixture<ParallaxCarouselComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ],
+      declarations: [ ParallaxCarouselComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(ParallaxCarouselComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

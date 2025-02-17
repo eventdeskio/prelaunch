@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000',
+  apiUrl : 'http://localhost:5000',
   POSTHOG_KEY: 'phc_lzRnYl7IDA5MW0wNt3mddz9t2BYBZX0bNWgypBqM9gx',
   POSTHOG_HOST: 'https://us.i.posthog.com',
 };

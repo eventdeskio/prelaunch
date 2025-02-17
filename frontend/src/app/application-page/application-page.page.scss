@@ -77,7 +77,11 @@
   align-items: center;
   padding-left: 5%;
   padding-top: 3%;
-
+  position: sticky;
+  top: 10px; 
+  align-self: flex-start; 
+  max-height: 90vh; 
+  overflow: hidden; 
 }
 
 .right-container {
@@ -89,6 +93,7 @@
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 2%;
+  box-shadow: none;
 }
 
 .right-container h2,
@@ -132,9 +137,6 @@ ion-textarea {
 
 }
 
-
-
-
 .classic-btn {
   display: flex;
   border-left: 4px solid var(--secondary);
@@ -175,15 +177,15 @@ ion-textarea {
   background: #0056b3;
 }
 
-
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  // white-space: nowrap;
+}
 
 
 /* Responsive Design */
 @media (max-width: 768px) {
-
-  // .left-container {
-  //     display: none;
-  // }
 
   .final-section-context{
       margin-top: 10%;
@@ -199,6 +201,7 @@ ion-textarea {
       padding-right: 10%;
       padding-top: 5%;
       text-align: center;
+      position: relative; 
   }
 
   .form-container {

@@ -42,7 +42,45 @@ import { environment } from 'src/environments/environment';
   ],
 })
 export class ApplicationPagePage implements OnInit {
-  ngOnInit() {}
+
+  private textToType: string =
+    '"Your career is more than a job—it’s a journey. Let’s take it together."';
+
+
+
+  ngOnInit() { }
+
+  ngAfterViewInit(): void {
+  const target = document.getElementById('typing-text');
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.unobserve(target); // Stop observing after animation starts
+          this.startTypingEffect(target);
+        }
+      },
+      { threshold: 0.6 } // Trigger when 60% of the text is visible
+    );
+
+    observer.observe(target);
+  }
+
+  private startTypingEffect(target: HTMLElement): void {
+    target.innerHTML = ''; // Clear existing text
+    let index = 0;
+
+    const typingInterval = setInterval(() => {
+      if (index < this.textToType.length) {
+        target.innerHTML += this.textToType[index];
+        index++;
+      } else {
+        clearInterval(typingInterval); // Stop animation when text is fully typed
+      }
+    }, 50); // Adjust speed (lower = faster)
+  }
+
 
   private apiUrl = environment.apiUrl;
 
@@ -96,7 +134,7 @@ export class ApplicationPagePage implements OnInit {
       state: data['state'],
       linkedin: data['linkedin'],
       portfolio: data['portfolio'],
-      selectedRoles:data['selectedRoles'],
+      selectedRoles: data['selectedRoles'],
       resume: fileLink,
       message: data['message'],
     };

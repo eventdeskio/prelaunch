@@ -1,24 +1,27 @@
-import {
-  Component,
+import {  Component,
   OnInit,
   OnDestroy,
   CUSTOM_ELEMENTS_SCHEMA,
-  HostListener,ChangeDetectorRef 
-} from '@angular/core';
+  HostListener,ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
-import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
 import { PrelaunchFooterComponent } from '../prelaunch-footer/prelaunch-footer.component';
 import { ToastrService } from 'ngx-toastr';
+
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
+import { ParallaxCarouselComponent } from '../parallax-carousel/parallax-carousel.component';
+
 import posthog from 'posthog-js';
 import { Subscription } from 'rxjs';
+
+
 register();
 
 @Component({
@@ -30,29 +33,23 @@ register();
     CommonModule,
     FormsModule,
     IonicModule,
-    FooterComponent,
     HttpClientModule,
     PrelaunchFooterComponent,
+    ParallaxCarouselComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PrelaunchPagePage implements OnInit {
   private apiUrl = environment.apiUrl;
+  private heroSection!: HTMLElement | null;
 
-  featureimages: any[] = [
-    {
-      imagesrc: '../../assets/1 3.png',
-      context: 'Manage Events, vendors, guests, and invitations seamlessly.',
-    },
-    {
-      imagesrc: '../../assets/2 3.png',
-      context: 'Track event budgets and manage tasks effortlessly.',
-    },
-    {
-      imagesrc: '../../assets/3 4.png',
-      context: 'Drive engagement with a collaborative chat interface.',
-    },
-  ];
+  private featureSection!: HTMLElement | null;
+
+
+  private textToType: string =
+    '"…It’s the tool you didn’t know you needed until now."';
+
+
 
   deviceImages: any[] = [
     {
@@ -80,20 +77,16 @@ export class PrelaunchPagePage implements OnInit {
   private subscription: Subscription = new Subscription();
   shouldShowTerms:boolean=false;
   termsAccepted:boolean=false;
-  
 
-  constructor(
-    private route: Router,
-    private http: HttpClient,
-    private toastr: ToastrService,
+  constructor(private route: Router, private http: HttpClient, private toastr: ToastrService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+
+  ) { }
 
   ngOnInit() {
     console.log(localStorage.getItem("terms_accepted"))
 
     if(localStorage.getItem("terms_accepted")!==null && localStorage.getItem("terms_accepted")==="true"){
-      console.log("insddnjdnjfn")
       this.termsAccepted = true;
 
     }
@@ -114,8 +107,7 @@ export class PrelaunchPagePage implements OnInit {
         email: email,
       });
     }
-    console.log('test');
-    
+
   }
 
   termsAccept(){
@@ -123,6 +115,7 @@ export class PrelaunchPagePage implements OnInit {
     localStorage.setItem("terms_accepted","true")
   }
 
+  
   @HostListener('document:scroll', ['$event'])
   onScroll(event: Event) {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -142,7 +135,75 @@ export class PrelaunchPagePage implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+
+    setTimeout(() => {
+      document.querySelector('.herosection')?.classList.add('text-visible');
+      document.querySelector('.navbar')?.classList.add('visible');
+    }, 300);
+
+    this.featureSection = document.querySelector('.features-section');
+
+    if (this.featureSection) {
+      this.observeFeatureSection();
+    }
+
+
+    const target = document.getElementById('typing-text');
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.unobserve(target); // Stop observing after animation starts
+          this.startTypingEffect(target);
+        }
+      },
+      { threshold: 0.6 } // Trigger when 60% of the text is visible
+    );
+
+    observer.observe(target);
+  }
+
+  private startTypingEffect(target: HTMLElement): void {
+    target.innerHTML = ''; // Clear existing text
+    let index = 0;
+
+    const typingInterval = setInterval(() => {
+      if (index < this.textToType.length) {
+        target.innerHTML += this.textToType[index];
+        index++;
+      } else {
+        clearInterval(typingInterval); // Stop animation when text is fully typed
+      }
+    }, 50); // Adjust speed (lower = faster)
+  }
+
+
+  private observeFeatureSection(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.featureSection?.classList.add('box-visible');
+            this.featureSection?.classList.remove('box-hidden');
+          } else {
+            this.featureSection?.classList.add('box-hidden');
+            this.featureSection?.classList.remove('box-visible');
+          }
+        });
+      },
+      { threshold: 0.4 } // Triggers when 50% of the section is visible
+    );
+
+    if (this.featureSection) {
+      observer.observe(this.featureSection);
+    }
+  }
+
+
   saveEmail(data: any): Observable<any> {
+
     return this.http.post<any>(`${this.apiUrl}/saveEmail`, data);
   }
 
@@ -151,7 +212,9 @@ export class PrelaunchPagePage implements OnInit {
     this.emailText = inputElement.value;
   }
 
-  scheduleDemo(buttonName: String): void {
+
+
+  scheduleDemo(buttonName:String): void {
     this.emailText = this.emailText.trim().toLowerCase();
 
     if (!this.isValidEmail(this.emailText)) {
@@ -159,8 +222,8 @@ export class PrelaunchPagePage implements OnInit {
       return;
     }
     let data = {
-      email: this.emailText,
-    };
+      email: this.emailText
+    }
     posthog.capture('schedule_demo_clicked', {
       action: buttonName,
       email: this.emailText,
@@ -215,12 +278,13 @@ export class PrelaunchPagePage implements OnInit {
   navigateToHome() {
     this.route.navigate(['/']);
   }
+
+  
   ngOnDestroy() {
     const sessionDuration = (Date.now() - this.sessionStartTime) / 1000;
     console.log(`Session duration: ${sessionDuration} seconds`);
     posthog.capture('session_duration', { duration: sessionDuration });
 
-    // Unsubscribe if there are active subscriptions
     this.subscription.unsubscribe();
   }
 }
