@@ -46,16 +46,54 @@ export class ApplicationPagePage implements OnInit {
   private textToType: string =
     '"Your career is more than a job—it’s a journey. Let’s take it together."';
 
+  private leftContianer!: HTMLElement | null;
+  private rightContainer!: HTMLElement | null;
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private route: Router,
+    private toastr: ToastrService
+  ) {
+    this.jobForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      selectedRoles: [[]],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      linkedin: ['', Validators.required],
+      portfolio: [''],
+      resume: [null, Validators.required],
+      message: ['', Validators.required],
+    });
+  
+    
 
 
-  ngOnInit() { }
+
+  }
+
+  ngOnInit() {
+    
+   }
 
   ngAfterViewInit(): void {
-  const target = document.getElementById('typing-text');
+
+    setTimeout(() => {
+      document.querySelector('.left-container')?.classList.add('visible');
+      document.querySelector('.right-container')?.classList.add('visible');
+      document.querySelector('.navbar')?.classList.add('visible');
+    }, 300);
+
+
+    const target = document.getElementById('typing-text');
     if (!target) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        console.log("hellooo")
         if (entries[0].isIntersecting) {
           observer.unobserve(target); // Stop observing after animation starts
           this.startTypingEffect(target);
@@ -65,6 +103,8 @@ export class ApplicationPagePage implements OnInit {
     );
 
     observer.observe(target);
+
+        
   }
 
   private startTypingEffect(target: HTMLElement): void {
@@ -89,26 +129,7 @@ export class ApplicationPagePage implements OnInit {
   loading: boolean = false;
   roles = ['User Research', 'Website Design', 'Content Writer', 'Marketing', 'UX Design', 'Others'];
   selectedRoles: string[] = [];
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private route: Router,
-    private toastr: ToastrService
-  ) {
-    this.jobForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      selectedRoles: [[]],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      linkedin: ['', Validators.required],
-      portfolio: [''],
-      resume: [null, Validators.required],
-      message: ['', Validators.required],
-    });
-  }
+ 
 
   getResumes(page: number, limit: number): Observable<any> {
     const params = new HttpParams()

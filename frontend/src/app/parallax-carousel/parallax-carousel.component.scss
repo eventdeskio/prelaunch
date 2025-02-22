@@ -73,17 +73,15 @@ header nav a{
     transition: opacity 0.5s;
 }
 .carousel .list .item .introduce .title{
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 500;
-    line-height: 1em;
+    line-height: 1.2em;
 }
-.carousel .list .item .introduce .topic{
-    font-size: 2em;
-    font-weight: 500;
-}
+
 .carousel .list .item .introduce .des{
     font-size: small;
     color: #5559;
+    padding-top: 2%;
 }
 .carousel .list .item .introduce .seeMore{
     font-family: Poppins;
@@ -120,7 +118,6 @@ header nav a{
 
 /* animation text in item2 */
 .carousel .list .item:nth-child(2) .introduce .title,
-.carousel .list .item:nth-child(2) .introduce .topic,
 .carousel .list .item:nth-child(2) .introduce .des,
 .carousel .list .item:nth-child(2) .introduce .seeMore{
     opacity: 0;
@@ -136,9 +133,7 @@ header nav a{
         filter: blur(0px);
     }
 }
-.carousel .list .item:nth-child(2) .introduce .topic{
-    animation-delay: 1s;
-}
+
 .carousel .list .item:nth-child(2) .introduce .des{
     animation-delay: 1.2s;
 }
@@ -310,6 +305,47 @@ header nav a{
     transform: translate(-100%, -50%) rotate(90deg);
     filter: blur(130px);
 }
+@media screen and (min-width:762px) and (max-width: 920px){
+    /* ipad, tablets */
+   
+    .carousel .list .item .introduce .title{
+        font-size: 1.4em;
+        font-weight: 500;
+        line-height: 1.2em;
+        width: 75%;
+
+    }
+    
+    .carousel .list .item .introduce .des{
+        font-size: 1em;
+        color: #5559;
+        padding-top: 2%;
+        width: 75%;
+    }
+    .carousel .list .item img{
+        width: 50%;
+    }
+   
+}
+@media screen and (max-width: 1080px){
+    /* ipad, tablets */
+   
+    .carousel .list .item .introduce .title{
+        font-size: 1.5em;
+        font-weight: 500;
+        line-height: 1.2em;
+    }
+    
+    .carousel .list .item .introduce .des{
+        font-size: small;
+        color: #5559;
+        padding-top: 2%;
+    }
+    .carousel .list .item img{
+        width: 50%;
+    }
+   
+}
 @media screen and (max-width: 991px){
     /* ipad, tablets */
     .carousel .list .item{
@@ -348,3 +384,4 @@ header nav a{
     }
    
 }
+
