@@ -1,8 +1,11 @@
-import {  Component,
+import {
+  Component,
   OnInit,
   OnDestroy,
   CUSTOM_ELEMENTS_SCHEMA,
-  HostListener,ChangeDetectorRef  } from '@angular/core';
+  HostListener,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -21,7 +24,6 @@ import { ParallaxCarouselComponent } from '../parallax-carousel/parallax-carouse
 import posthog from 'posthog-js';
 import { Subscription } from 'rxjs';
 
-
 register();
 
 @Component({
@@ -35,21 +37,18 @@ register();
     IonicModule,
     HttpClientModule,
     PrelaunchFooterComponent,
-    ParallaxCarouselComponent
+    ParallaxCarouselComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PrelaunchPagePage implements OnInit {
   private apiUrl = environment.apiUrl;
   private heroSection!: HTMLElement | null;
-
+  siteKey: String = environment.siteKey;
   private featureSection!: HTMLElement | null;
-
 
   // private textToType: string =
   //   '"…It’s the tool you didn’t know you needed until now."';
-
-
 
   deviceImages: any[] = [
     {
@@ -75,23 +74,29 @@ export class PrelaunchPagePage implements OnInit {
   isDemoScheduled: boolean = false;
   sessionStartTime!: number;
   private subscription: Subscription = new Subscription();
-  shouldShowTerms:boolean=false;
-  termsAccepted:boolean=false;
+  shouldShowTerms: boolean = false;
+  termsAccepted: boolean = false;
 
-  constructor(private route: Router, private http: HttpClient, private toastr: ToastrService,
+  constructor(
+    private route: Router,
+    private http: HttpClient,
+    private toastr: ToastrService,
     private changeDetector: ChangeDetectorRef
-
-  ) { }
+  ) {}
 
   ngOnInit() {
-    console.log(localStorage.getItem("terms_accepted"))
+    this.addScript();
 
-    if(localStorage.getItem("terms_accepted")!==null && localStorage.getItem("terms_accepted")==="true"){
+    console.log(localStorage.getItem('terms_accepted'));
+
+    if (
+      localStorage.getItem('terms_accepted') !== null &&
+      localStorage.getItem('terms_accepted') === 'true'
+    ) {
       this.termsAccepted = true;
-
     }
     posthog.onFeatureFlags((e) => {
-      console.log(e)
+      console.log(e);
       if (posthog.isFeatureEnabled('terms_and_conditions')) {
         this.shouldShowTerms = true;
         this.changeDetector.detectChanges();
@@ -107,15 +112,21 @@ export class PrelaunchPagePage implements OnInit {
         email: email,
       });
     }
-
   }
 
-  termsAccept(){
+  termsAccept() {
     this.termsAccepted = true;
-    localStorage.setItem("terms_accepted","true")
+    localStorage.setItem('terms_accepted', 'true');
+  }
+  addScript() {
+    let script = document.createElement('script');
+    // script.src = `https://www.google.com/recaptcha/api.js?render=${environment.siteKey}`;
+    script.src = `https://www.google.com/recaptcha/api.js`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 
-  
   @HostListener('document:scroll', ['$event'])
   onScroll(event: Event) {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -136,7 +147,6 @@ export class PrelaunchPagePage implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
     setTimeout(() => {
       document.querySelector('.herosection')?.classList.add('text-visible');
       document.querySelector('.navbar')?.classList.add('visible');
@@ -148,37 +158,35 @@ export class PrelaunchPagePage implements OnInit {
       this.observeFeatureSection();
     }
 
+    //   const target = document.getElementById('typing-text');
+    //   if (!target) return;
 
-  //   const target = document.getElementById('typing-text');
-  //   if (!target) return;
+    //   const observer = new IntersectionObserver(
+    //     (entries) => {
+    //       if (entries[0].isIntersecting) {
+    //         observer.unobserve(target); // Stop observing after animation starts
+    //         // this.startTypingEffect(target);
+    //       }
+    //     },
+    //     { threshold: 0.6 } // Trigger when 60% of the text is visible
+    //   );
 
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         observer.unobserve(target); // Stop observing after animation starts
-  //         // this.startTypingEffect(target);
-  //       }
-  //     },
-  //     { threshold: 0.6 } // Trigger when 60% of the text is visible
-  //   );
+    //   observer.observe(target);
+    // }
 
-  //   observer.observe(target);
-  // }
+    // private startTypingEffect(target: HTMLElement): void {
+    //   target.innerHTML = ''; // Clear existing text
+    //   let index = 0;
 
-  // private startTypingEffect(target: HTMLElement): void {
-  //   target.innerHTML = ''; // Clear existing text
-  //   let index = 0;
-
-  //   const typingInterval = setInterval(() => {
-  //     if (index < this.textToType.length) {
-  //       target.innerHTML += this.textToType[index];
-  //       index++;
-  //     } else {
-  //       clearInterval(typingInterval); // Stop animation when text is fully typed
-  //     }
-  //   }, 50); // Adjust speed (lower = faster)
+    //   const typingInterval = setInterval(() => {
+    //     if (index < this.textToType.length) {
+    //       target.innerHTML += this.textToType[index];
+    //       index++;
+    //     } else {
+    //       clearInterval(typingInterval); // Stop animation when text is fully typed
+    //     }
+    //   }, 50); // Adjust speed (lower = faster)
   }
-
 
   private observeFeatureSection(): void {
     const observer = new IntersectionObserver(
@@ -201,9 +209,7 @@ export class PrelaunchPagePage implements OnInit {
     }
   }
 
-
   saveEmail(data: any): Observable<any> {
-
     return this.http.post<any>(`${this.apiUrl}/saveEmail`, data);
   }
 
@@ -212,38 +218,54 @@ export class PrelaunchPagePage implements OnInit {
     this.emailText = inputElement.value;
   }
 
-
-
-  scheduleDemo(buttonName:String): void {
-    this.emailText = this.emailText.trim().toLowerCase();
-
-    if (!this.isValidEmail(this.emailText)) {
-      this.toastr.error('Invalid email address. Please enter a valid email.');
+  async scheduleDemo(buttonName: String) {
+    const recaptchaResponse = (
+      document.getElementById('g-recaptcha-response') as HTMLInputElement
+    ).value;
+    if (!recaptchaResponse) {
+      alert('Please complete the reCAPTCHA');
       return;
     }
-    let data = {
-      email: this.emailText
-    }
-    posthog.capture('schedule_demo_clicked', {
-      action: buttonName,
-      email: this.emailText,
-      timestamp: new Date(),
-    });
-    this.saveEmail(data).subscribe(
-      (response) => {
-        this.toastr.success('Demo Scheduled Successfully!');
-        localStorage.setItem('demoScheduled', 'true');
-        localStorage.setItem('userEmail', this.emailText);
+    let res: any = await this.http
+      .post(`${this.apiUrl}/verify-recaptcha`, {
+        recaptchaToken: recaptchaResponse,
+      })
+      .toPromise();
+    console.log(res);
 
-        this.isDemoScheduled = true;
-      },
-      (error) => {
-        this.toastr.error(`${error.error.error}`);
+    if (res.success === true && res.message === 'Valid reCAPTCHA') {
+      this.emailText = this.emailText.trim().toLowerCase();
 
-        console.error('Error saving details:', error);
+      if (!this.isValidEmail(this.emailText)) {
+        this.toastr.error('Invalid email address. Please enter a valid email.');
+        return;
       }
-    );
-    console.log('Entered Email:', this.emailText);
+      let data = {
+        email: this.emailText,
+      };
+      posthog.capture('schedule_demo_clicked', {
+        action: buttonName,
+        email: this.emailText,
+        timestamp: new Date(),
+      });
+      this.saveEmail(data).subscribe(
+        (response) => {
+          this.toastr.success('Thank you! We will contact you shortly.');
+          localStorage.setItem('demoScheduled', 'true');
+          localStorage.setItem('userEmail', this.emailText);
+
+          this.isDemoScheduled = true;
+        },
+        (error) => {
+          this.toastr.error(`${error.error.error}`);
+
+          console.error('Error saving details:', error);
+        }
+      );
+      console.log('Entered Email:', this.emailText);
+    } else {
+      this.toastr.error('Invalid captcha');
+    }
   }
 
   navigateToApplication() {
@@ -279,7 +301,6 @@ export class PrelaunchPagePage implements OnInit {
     this.route.navigate(['/']);
   }
 
-  
   ngOnDestroy() {
     const sessionDuration = (Date.now() - this.sessionStartTime) / 1000;
     console.log(`Session duration: ${sessionDuration} seconds`);

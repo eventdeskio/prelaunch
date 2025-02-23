@@ -48,7 +48,6 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
-
 :root {
   --primary: #2F63D3; /* Custom Primary Color */
   --primary-light: rgba(47, 99, 211,0.2);
@@ -61,7 +60,6 @@
   --light: #F1FAEE;
   --dark: #1D1D1D;
   --grey:#74768F;
-
 
 
   --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
@@ -79,6 +77,11 @@
   --item3-zIndex: 9;
   --item3-opacity: 1;
 
+  --item4-transform: translate(90%,20%) scale(0.5);
+  --item4-filter: blur(30px);
+  --item4-zIndex: 8;
+  --item4-opacity: 1;
+
 
   --item1-transform-md: translateX(-100%) translateY(35%) scale(1.5);
   --item1-filter-md: blur(30px);
@@ -95,11 +98,13 @@
   --item3-zIndex-md: 9;
   --item3-opacity-md: 1;
 
+  --item4-transform-md: translate(90%,20%) scale(0.5);
+  --item4-filter-md: blur(30px);
+  --item4-zIndex-md: 8;
+  --item4-opacity-md: 1;
 
 
-
-}
-  
+}  
 // :root {
 //     --primary: #2F63D3; /* Custom Primary Color */
 //     --primary-light: rgba(47, 99, 211,0.2);

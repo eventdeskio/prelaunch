@@ -1,51 +1,97 @@
-<header class="navbar navbar-expand-lg shadow-sm px-2 px-md-4 py-2 w-100" style="position: absolute; top:0;left: 0;z-index: 1000;">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand d-flex align-items-center" href="#" (click)="navigateToHome()">
-      <img src="../../assets/eventDeskLogo.png" alt="Logo" width="25" height="25" class="me-2" />
+<header
+  class="navbar navbar-expand-lg shadow-sm px-2 px-md-4 py-2 w-100"
+  style="position: absolute; top: 0; left: 0; z-index: 1000"
+>
+  <div
+    class="container-fluid d-flex justify-content-between align-items-center"
+  >
+    <a
+      class="navbar-brand d-flex align-items-center"
+      href="#"
+      (click)="navigateToHome()"
+    >
+      <img
+        src="../../assets/eventDeskLogo.png"
+        alt="Logo"
+        width="25"
+        height="25"
+        class="me-2"
+      />
       <span class="h5 fw-semibold mb-0 fs-6">EventDesk.io</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <nav class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav pt-3 pt-md-0 gap-4">
-
-        <li class="nav-item"><a href="#feature" class="nav-link">Feature</a></li>
+        <li class="nav-item">
+          <a href="#feature" class="nav-link">Feature</a>
+        </li>
         <li class="nav-item"><a href="#footer" class="nav-link">Contact</a></li>
-        <li class="nav-item"> <a
+        <li class="nav-item">
+          <a
             class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
-            (click)="navigateToApplication()">We're Hiring</a></li>
-
+            (click)="navigateToApplication()"
+            >We're Hiring</a
+          >
+        </li>
       </ul>
     </nav>
   </div>
 </header>
 
-
 <div class="ion-pad">
-
   <div class="main-section w-100">
-
-    <div class="herosection d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center">
-
-      <h1 class="primary-whole pt-1 pt-md-5  fw-semibold">
-        A mobile-first, effortless 
+    <div
+      class="herosection d-flex flex-column align-items-center justify-content-center text-center bg-cover bg-center"
+    >
+      <h1 class="primary-whole pt-1 pt-md-5 fw-semibold">
+        A mobile-first, effortless
         <span class="text-primary-p">event management</span> experience
       </h1>
 
       <p class="text-secondary text-secondary-p fs-6 pt-3 pt-md-1 mt-2">
-        Designed to simplify planning, enhance collaboration, and execute with ease.
+        Designed to simplify planning, enhance collaboration, and execute with
+        ease.
       </p>
 
-      <div class="mailbox-field w-100 mt-2 pt-5 pt-md-1 d-flex flex-column flex-md-row justify-content-center gap-2">
-        <input type="email" placeholder="Enter your email id" class="form-control" (input)="onEmailChange($event)" />
-        <button *ngIf="!isDemoScheduled" class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo('scheduleDemo')">
-          Schedule a demo
-        </button>
-        <button *ngIf="isDemoScheduled" class="classic-btn btn btn-primary w-md-auto" (click)="scheduleDemo('scheduleDemo')">
-          Reschedule 
-        </button>
+      <div
+        class="mailbox-field w-100 mt-2 pt-5 pt-md-1 justify-content-center gap-2"
+      >
+        <input
+          type="email"
+          placeholder="Enter your email id"
+          class="form-control"
+          (input)="onEmailChange($event)"
+        />
+        <div class="capbtn">
+          <div
+            class="g-recaptcha"
+            [attr.data-sitekey]="siteKey"
+            style="display: flex; justify-content: center"
+          ></div>
+
+          <button
+            *ngIf="!isDemoScheduled"
+            class="classic-btn btn btn-primary w-md-auto mt-2"
+            (click)="scheduleDemo('scheduleDemo')"
+          >
+            Schedule a demo
+          </button>
+          <button
+            *ngIf="isDemoScheduled"
+            class="classic-btn btn btn-primary w-md-auto mt-2"
+            (click)="scheduleDemo('scheduleDemo')"
+          >
+            Reschedule
+          </button>
+        </div>
       </div>
       <!-- <div *ngIf="isDemoScheduled" class="notification-container">
         <div
@@ -61,29 +107,38 @@
     </div>
 
     <app-parallax-carousel></app-parallax-carousel>
-
   </div>
 
-
-  <section id="feature" class="d-flex justify-content-center features-section mt-5 row g-3">
+  <section
+    id="feature"
+    class="d-flex justify-content-center features-section mt-5 row g-3"
+  >
     <h4 class="h4 text-center fw-semibold">
       Every aspect of event management, streamlined
     </h4>
     <div class="col-md-4">
       <div class="feature-card bg-primary bg-opacity-10 rounded shadow-sm">
-        <img src="../../assets/Taskmanagementool.png" alt="Task Management Tool" class="featureimage" />
+        <img
+          src="../../assets/Taskmanagementool.png"
+          alt="Task Management Tool"
+          class="featureimage"
+        />
         <h3 class="fw-medium sub-title pt-2">Task Management Tool</h3>
         <p class="feature-title text-secondary small pt-1">
-          Keep your event on track with intuitive task management.
-          Assign, monitor, and complete tasks effortlessly.
+          Keep your event on track with intuitive task management. Assign,
+          monitor, and complete tasks effortlessly.
         </p>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="feature-card bg-warning bg-opacity-10 rounded shadow-sm">
-        <img src="../../assets/roleandcollab.png" alt="Roles and Collaboration" class="featureimage" />
-        <h3 class="fw-medium sub-title"pt-2>Roles and Collaboration</h3>
+        <img
+          src="../../assets/roleandcollab.png"
+          alt="Roles and Collaboration"
+          class="featureimage"
+        />
+        <h3 class="fw-medium sub-title" pt-2>Roles and Collaboration</h3>
         <p class="feature-title text-secondary small pt-1">
           Vendors collaborate with providers, event planners organize
           seamlessly, and co-planners share ideas with clients.
@@ -93,11 +148,15 @@
 
     <div class="col-md-4">
       <div class="feature-card bg-danger bg-opacity-10 rounded shadow-sm">
-        <img src="../../assets/magicinvite.png" alt="Magic Invite Page" class="featureimage" />
-        <h3 class="fw-medium sub-title"pt-2>Magic Invite Page</h3>
+        <img
+          src="../../assets/magicinvite.png"
+          alt="Magic Invite Page"
+          class="featureimage"
+        />
+        <h3 class="fw-medium sub-title" pt-2>Magic Invite Page</h3>
         <p class="feature-title text-secondary small pt-1">
-          Every guest receives a personalized, static webpage with
-          event details and RSVP options.
+          Every guest receives a personalized, static webpage with event details
+          and RSVP options.
         </p>
       </div>
     </div>
@@ -108,13 +167,22 @@
       Plan and manage your events anytime, anywhere!
     </h4>
 
-
     <div class="device-carousel">
-      <swiper-container effect="cards" grabCursor="true" pagination="true" autoplay-delay="4000"
-        autoplay-disable-on-interaction="false" class="device-swiper-container">
+      <swiper-container
+        effect="cards"
+        grabCursor="true"
+        pagination="true"
+        autoplay-delay="4000"
+        autoplay-disable-on-interaction="false"
+        class="device-swiper-container"
+      >
         <swiper-slide *ngFor="let image of deviceImages">
           <div class="device-carousel-card">
-            <img [src]="image.imagesrc" alt="Event Image" class="device-carousel-image" />
+            <img
+              [src]="image.imagesrc"
+              alt="Event Image"
+              class="device-carousel-image"
+            />
             <div class="device-carousel-content">
               <h6 class="fw-semibold">{{image.title}}</h6>
               <p class="text-secondary">{{image.context}}</p>
@@ -123,56 +191,82 @@
         </swiper-slide>
       </swiper-container>
     </div>
-
   </section>
 
   <section class="final-section-context">
-    <h6 class="fs-6 fw-light">Why you’ll fall in love with <b class="fw-medium">EventDesk</b>.</h6>
-    <br />
-    <h2 class="fw-semibold fs-2 typewriter line-spacing-2 tracking-tighter" id="typing-text">
+    <!-- <h6 class="fs-6 fw-light">Why you’ll fall in love with <b class="fw-medium">EventDesk</b>.</h6> -->
+    <!-- <br /> -->
+    <h2
+      class="fw-semibold fs-2 typewriter line-spacing-2 tracking-tighter"
+      id="typing-text"
+    >
       "…It’s the tool you didn’t know you needed until now."
     </h2>
     <br />
     <h6 class="fs-6 fw-light">
-      From seamless task management to effortless collaboration and
-      stunning invites, EventDesk transforms the way events come to
-      life.
+      From seamless task management to effortless collaboration and stunning
+      invites, EventDesk transforms the way events come to life.
     </h6>
   </section>
-  
-  <img src="assets/sitting-character.png" width="130" height="120" class="boyImage -mb-5">
 
-  <app-prelaunch-footer [boyImageFlag]="true" id="present-footers"></app-prelaunch-footer>
+  <img
+    src="assets/sitting-character.png"
+    width="130"
+    height="120"
+    class="boyImage -mb-5"
+  />
 
+  <app-prelaunch-footer
+    [boyImageFlag]="true"
+    id="present-footers"
+  ></app-prelaunch-footer>
 
-  
-<div class="modal" *ngIf="!termsAccepted && shouldShowTerms">
-  <div class="terms-container">
-    <h1>Terms and Conditions</h1>
-    <div class="terms-content">
+  <div class="modal" *ngIf="!termsAccepted && shouldShowTerms">
+    <div class="terms-container">
+      <h1>Terms and Conditions</h1>
+      <div class="terms-content">
         <h2>1. Acceptance of Terms</h2>
-        <p>By accessing or using Eventdesk’s event management platform, you agree to comply with these Terms and Conditions. If you do not agree, please refrain from using the service.</p>
-  
+        <p>
+          By accessing or using Eventdesk’s event management platform, you agree
+          to comply with these Terms and Conditions. If you do not agree, please
+          refrain from using the service.
+        </p>
+
         <h2>2. User Responsibilities</h2>
-        <p>Users must provide accurate information when registering and using the platform. Misuse of the service, including fraudulent activity, unauthorized access, or violation of laws, is strictly prohibited.</p>
-  
+        <p>
+          Users must provide accurate information when registering and using the
+          platform. Misuse of the service, including fraudulent activity,
+          unauthorized access, or violation of laws, is strictly prohibited.
+        </p>
+
         <!-- <h2>3. Payment & Refund Policy</h2>
         <p>Payments for event bookings, ticket purchases, or premium features are non-refundable unless otherwise stated. Any disputes regarding transactions must be reported within 14 days.</p> -->
-  
+
         <h2>3. Intellectual Property</h2>
-        <p>All content, software, and branding related to the platform are owned by EventDesk or its licensors. Users may not copy, distribute, or modify any materials without explicit permission.</p>
-  
+        <p>
+          All content, software, and branding related to the platform are owned
+          by EventDesk or its licensors. Users may not copy, distribute, or
+          modify any materials without explicit permission.
+        </p>
+
         <h2>4. Limitation of Liability</h2>
-        <p>EventDesk is not responsible for any damages, losses, or issues arising from the use of the platform, including but not limited to event cancellations, ticket disputes, or third-party actions.</p>
-  
+        <p>
+          EventDesk is not responsible for any damages, losses, or issues
+          arising from the use of the platform, including but not limited to
+          event cancellations, ticket disputes, or third-party actions.
+        </p>
+
         <h2>5. Privacy & Data Usage</h2>
-        <p>We collect and store user data in accordance with our Privacy Policy. By using the platform, you consent to our data practices, including the use of cookies and analytics for service improvement.</p>
-    </div>
-  
-    <div class="btn-container">
+        <p>
+          We collect and store user data in accordance with our Privacy Policy.
+          By using the platform, you consent to our data practices, including
+          the use of cookies and analytics for service improvement.
+        </p>
+      </div>
+
+      <div class="btn-container">
         <button class="accept-btn" (click)="termsAccept()">Accept</button>
+      </div>
     </div>
-  </div>
   </div>
 </div>
-

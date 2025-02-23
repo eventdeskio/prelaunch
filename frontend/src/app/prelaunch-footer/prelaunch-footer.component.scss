@@ -18,8 +18,7 @@
 
 .footer ul li {
     margin-bottom: 5px;
-    // padding: 3%;
-    width: 120%;
+    padding: 3%;
 }
 
 .footer ul li a {
@@ -40,4 +39,28 @@
 
 .social-icons a:hover {
     color: #000;
+}
+
+.footer-container{
+    padding-left: 14%;
+    padding-right: 14%;
+    font-size: 0.9em;
+}
+
+.footer-container {
+    padding-left: 14%;
+    padding-right: 14%;
+    font-size: 0.9em;
+}
+
+
+.herocore-logo{
+    font-size: 1em;
+}
+@media  screen and (max-width: 767px)  {
+    .footer-container{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
 }
