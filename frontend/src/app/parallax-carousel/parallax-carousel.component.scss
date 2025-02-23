@@ -21,7 +21,7 @@ header nav a{
 /* carousel */
 .carousel{
     position: relative;
-    height: 80vh;
+    height: 75vh;
     // height: fit-content;
     overflow: hidden;
     // margin-top: -50px;
@@ -353,35 +353,152 @@ header nav a{
     }
    
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
+
     /* mobile */
-    .carousel{
-        height: 35vh;
-    }
-    .carousel .list .item{
-        width: 100%;
-        font-size: 10px;
-    }
-    
-    .carousel .list{
-        height: 100%;
-    }
-    .carousel .list .item:nth-child(2) .introduce{
-        width: 40%;
-    }
-    
-    .arrows{
-        display: none;
+
+    .carousel {
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
     }
 
-    .carousel .list .item img{
-        width: 50%;
+    .carousel .list {
+        position: static;
+        width: 100%;
+        height: auto;
+        transform: none;
     }
-   
-    .carousel .list .item:nth-child(2) .introduce .des{
+
+    .carousel .list .item {
+        position: relative;
+        width: 100%;
+        height: auto;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .carousel .list .item img {
+        width: 100%;
+        right: -6%;
+        transform: none;
+    }
+
+    .carousel .list .item:nth-child(2) .introduce {
+        opacity: 1;
+        pointer-events: auto;
+        position: relative;
+        top: 50%;
+        left: 3%;
+        width: 100%;
+        transform: translateY(-50%);
+        transition: opacity 0.5s;
+    }
+
+    .carousel .list .item .introduce {
+        opacity: 1;
+        pointer-events: auto;
+        width: 100%;
+        position: static;
+        transform: none;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .carousel .list .item .introduce .title {
+        font-size: 1.5em;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .carousel .list .item .introduce .des {
+        font-size: 1em;
+        color: #555;
+        text-align: center;
         height: 100px;
         overflow: auto;
     }
-   
+
+    .carousel .list .item:nth-child(1) {
+        transform: var(--item1-transform-md);
+        filter: var(--item1-filter-md);
+        z-index: var(--item1-zIndex-md);
+        opacity: var(--item1-opacity-md);
+        pointer-events: none;
+    }
+
+    .carousel .list .item:nth-child(3) {
+        transform: var(--item3-transform-md);
+        filter: var(--item3-filter-md);
+        z-index: var(--item3-zIndex-md);
+    }
+
+    .carousel .list .item:nth-child(4) {
+        transform: var(--item4-transform-md);
+        filter: var(--item4-filter-md);
+        z-index: var(--item4-zIndex-md);
+    }
+
+    /* animation text in item2 */
+    .carousel .list .item:nth-child(2) .introduce .title,
+    .carousel .list .item:nth-child(2) .introduce .des,
+    .carousel .list .item:nth-child(2) .introduce .seeMore {
+        opacity: 0;
+        animation: showContent 0.3s 0.5s ease-in-out 1 forwards;
+    }
+
+    @keyframes showContent {
+        from {
+            transform: translateY(-30px);
+            filter: blur(10px);
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+            filter: blur(0px);
+        }
+    }
+
+    .carousel .list .item:nth-child(2) .introduce .des {
+        animation-delay: 1.2s;
+    }
+
+    .carousel .list .item:nth-child(2) .introduce .seeMore {
+        animation-delay: 1.3s;
+    }
+
+    /* next click */
+    .carousel.next .item:nth-child(1) {
+        animation: transformFromPosition2-md 0.5s ease-in-out 1 forwards;
+    }
+
+    @keyframes transformFromPosition2-md {
+        from {
+            transform: var(--item2-transform-md);
+            filter: var(--item2-filter-md);
+            opacity: var(--item2-opacity-md);
+        }
+    }
+
+    .carousel.next .item:nth-child(2) {
+        animation: transformFromPosition3-md 0.7s ease-in-out 1 forwards;
+    }
+
+    @keyframes transformFromPosition3-md {
+        from {
+            transform: var(--item3-transform-md);
+            filter: var(--item3-filter-md);
+            opacity: var(--item3-opacity-md);
+        }
+    }
+
+    .carousel.next .item:nth-child(3) {
+        animation: transformFromPosition4 0.9s ease-in-out 1 forwards;
+    }
+
+    .arrows {
+        display: none;
+    }
 }
 

@@ -8,6 +8,7 @@ const { Pool } = require("pg");
 const Joi = require("joi");
 const createDOMPurify = require("isomorphic-dompurify");
 const { JSDOM } = require("jsdom");
+const axios = require("axios")
 const {
   monitoringMiddleware,
   getMetrics,
@@ -234,7 +235,7 @@ app.post("/savedetails", async (req, res) => {
       city: Joi.string().max(100).required(),
       state: Joi.string().max(100).required(),
       linkedin: Joi.string().uri().required(),
-      portfolio: Joi.string().uri().optional(),
+      portfolio: Joi.alternatives().try(Joi.string().uri(), Joi.string().allow("")).optional(),
       resume: Joi.string().uri().required(),
       message: Joi.string().max(1000).required(),
       selectedRoles: Joi.array()
@@ -395,3 +396,51 @@ app.put("/updateReviewed", async (req, res) => {
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`Server running on port ${process.env.SERVER_PORT}`)
 );
+
+
+// app.post('/verify-recaptcha', async (req, res) => {
+//   const { recaptchaToken } = req.body;
+//   if (!recaptchaToken) {
+//       return res.status(400).json({ error: "reCAPTCHA token missing" });
+//   }
+
+//   try {
+//       const secretKey = process.env.SECRET_KEY; 
+//       const response = await axios.post(
+//           `https://www.google.com/recaptcha/api/siteverify`,
+//           null,
+//           {
+//               params: {
+//                   secret: secretKey,
+//                   response: recaptchaToken,
+//               },
+//           }
+//       );
+
+//       const data = response.data;
+
+//       if (data.success && data.score >= 0.5) {
+//           return res.json({ success: true, message: "Valid reCAPTCHA", score: data.score });
+//       } else {
+//           return res.status(400).json({ success: false, message: "Failed reCAPTCHA", score: data.score });
+//       }
+//   } catch (error) {
+//       console.error("reCAPTCHA verification failed:", error);
+//       return res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
+app.post('/verify-recaptcha', async (req, res) => {
+  const { recaptchaToken } = req.body;
+  const secretKey = process.env.SECRET_KEY;
+  const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`, {
+      method: 'POST',
+  });
+  const data = await response.json();
+  if (data.success) {
+      res.json({ success: true, message: "Valid reCAPTCHA" });
+  } else {
+      res.status(400).json({ success: false, message: "reCAPTCHA failed" });
+  }
+});

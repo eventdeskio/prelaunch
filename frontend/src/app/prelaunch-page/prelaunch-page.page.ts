@@ -46,8 +46,8 @@ export class PrelaunchPagePage implements OnInit {
   private featureSection!: HTMLElement | null;
 
 
-  private textToType: string =
-    '"…It’s the tool you didn’t know you needed until now."';
+  // private textToType: string =
+  //   '"…It’s the tool you didn’t know you needed until now."';
 
 
 
@@ -149,34 +149,34 @@ export class PrelaunchPagePage implements OnInit {
     }
 
 
-    const target = document.getElementById('typing-text');
-    if (!target) return;
+  //   const target = document.getElementById('typing-text');
+  //   if (!target) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          observer.unobserve(target); // Stop observing after animation starts
-          this.startTypingEffect(target);
-        }
-      },
-      { threshold: 0.6 } // Trigger when 60% of the text is visible
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         observer.unobserve(target); // Stop observing after animation starts
+  //         // this.startTypingEffect(target);
+  //       }
+  //     },
+  //     { threshold: 0.6 } // Trigger when 60% of the text is visible
+  //   );
 
-    observer.observe(target);
-  }
+  //   observer.observe(target);
+  // }
 
-  private startTypingEffect(target: HTMLElement): void {
-    target.innerHTML = ''; // Clear existing text
-    let index = 0;
+  // private startTypingEffect(target: HTMLElement): void {
+  //   target.innerHTML = ''; // Clear existing text
+  //   let index = 0;
 
-    const typingInterval = setInterval(() => {
-      if (index < this.textToType.length) {
-        target.innerHTML += this.textToType[index];
-        index++;
-      } else {
-        clearInterval(typingInterval); // Stop animation when text is fully typed
-      }
-    }, 50); // Adjust speed (lower = faster)
+  //   const typingInterval = setInterval(() => {
+  //     if (index < this.textToType.length) {
+  //       target.innerHTML += this.textToType[index];
+  //       index++;
+  //     } else {
+  //       clearInterval(typingInterval); // Stop animation when text is fully typed
+  //     }
+  //   }, 50); // Adjust speed (lower = faster)
   }
 
 

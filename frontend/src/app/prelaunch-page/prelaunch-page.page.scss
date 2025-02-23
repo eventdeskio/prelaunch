@@ -58,12 +58,8 @@
 
 
 .herosection {
-    padding: 5%;
-    padding-bottom: 8%;
-    padding-left: 25%;
-    padding-right: 25%;
+    padding: 5% 25% 8%; /* top right/left bottom */
     letter-spacing: -2px;
-
 }
 
 .herosection .mailbox-field,
@@ -304,10 +300,7 @@
     }
 
     .herosection {
-        padding: 10%;
-        padding-left: 15%;
-        padding-right: 15%;
-
+        padding: 30% 15% 10%; /* top right/left bottom */
     }
 
     .featureimage {

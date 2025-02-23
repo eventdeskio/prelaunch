@@ -32,6 +32,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "ionicons": "^7.0.0",
+    "ng-recaptcha": "^13.2.1",
     "ngx-toastr": "^19.0.0",
     "posthog-js": "^1.181.0",
     "rxjs": "~7.8.0",
