@@ -294,6 +294,8 @@ export class PrelaunchPagePage implements OnInit {
       );
       console.log('Entered Email:', this.emailText);
     } else {
+      grecaptcha.reset();
+
       this.toastr.error('Invalid captcha');
     }
   }

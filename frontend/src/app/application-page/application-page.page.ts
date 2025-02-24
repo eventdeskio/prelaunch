@@ -244,10 +244,13 @@ export class ApplicationPagePage implements OnInit {
           }
         );
       } else {
+        grecaptcha.reset();
+
         this.toastr.error('Invalid captcha');
       }
     } else {
       this.loading = false;
+      grecaptcha.reset();
 
       console.log('Invalid Form');
       Object.keys(this.jobForm.controls).forEach((key) => {
