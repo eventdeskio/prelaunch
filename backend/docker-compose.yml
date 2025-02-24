@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: rajaramachandran/eventdesk:backend_dev_v1
+    image: rajaramachandran/eventdesk:backend_v1
     environment:
       - JWT_SECRET=$JWT_SECRET
       - JWT_EXPIRES_IN=$JWT_EXPIRES_IN
@@ -19,7 +19,7 @@ services:
       retries: 3
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.backend.rule=Host(`devb.eventdesk.io`)"
+        - "traefik.http.routers.backend.rule=Host(`eventdesk.io`)"
         - "traefik.http.routers.backend.entrypoints=websecure"
         - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
         - "traefik.http.services.backend.loadbalancer.server.port=5001"
