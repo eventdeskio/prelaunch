@@ -11,6 +11,8 @@
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
+@import 'ngx-toastr/toastr';
+
 
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
@@ -32,6 +34,9 @@
 
 
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 
 /**
  * Ionic Dark Mode
@@ -43,23 +48,120 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
-
-
 :root {
-    --primary: #2F63D3; /* Custom Primary Color */
-    --primary-light: rgba(47, 99, 211,0.2);
-    --secondary: #FDBA09; /* Custom Secondary Color */
-    --teritary: #D2459B;
-    --fontcolor: #061C3D;
-    --success: #2A9D8F;
-    --warning: #E9C46A;
-    --danger: #E63946;
-    --light: #F1FAEE;
-    --dark: #1D1D1D;
-    --grey:#74768F;
-  }
+  --primary: #2F63D3; /* Custom Primary Color */
+  --primary-light: rgba(47, 99, 211,0.2);
+  --secondary: #FDBA09; /* Custom Secondary Color */
+  --teritary: #FADAE5;
+  --fontcolor: #061C3D;
+  --success: #2A9D8F;
+  --warning: #E9C46A;
+  --danger: #E63946;
+  --light: #F1FAEE;
+  --dark: #1D1D1D;
+  --grey:#74768F;
+
+
+  --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
+  --item1-filter: blur(30px);
+  --item1-zIndex: 11;
+  --item1-opacity: 0;
+
+  --item2-transform: translateX(0);
+  --item2-filter: blur(0px);
+  --item2-zIndex: 10;
+  --item2-opacity: 1;
+
+  --item3-transform: translate(50%,10%) scale(0.8);
+  --item3-filter: blur(10px);
+  --item3-zIndex: 9;
+  --item3-opacity: 1;
+
+  --item4-transform: translate(90%,20%) scale(0.5);
+  --item4-filter: blur(30px);
+  --item4-zIndex: 8;
+  --item4-opacity: 1;
+
+
+  --item1-transform-md: translateX(-100%) translateY(35%) scale(1.5);
+  --item1-filter-md: blur(30px);
+  --item1-zIndex-md: 11;
+  --item1-opacity-md: 0;
+
+  --item2-transform-md: translateX(0);
+  --item2-filter-md: blur(0px);
+  --item2-zIndex-md: 10;
+  --item2-opacity-md: 1;
+
+  --item3-transform-md: translate(25%,-20%) scale(0.8);
+  --item3-filter-md: blur(10px);
+  --item3-zIndex-md: 9;
+  --item3-opacity-md: 1;
+
+  --item4-transform-md: translate(90%,20%) scale(0.5);
+  --item4-filter-md: blur(30px);
+  --item4-zIndex-md: 8;
+  --item4-opacity-md: 1;
+
+
+}  
+// :root {
+//     --primary: #2F63D3; /* Custom Primary Color */
+//     --primary-light: rgba(47, 99, 211,0.2);
+//     --secondary: #FDBA09; /* Custom Secondary Color */
+//     --teritary: #FADAE5;
+//     --fontcolor: #061C3D;
+//     --success: #2A9D8F;
+//     --warning: #E9C46A;
+//     --danger: #E63946;
+//     --light: #F1FAEE;
+//     --dark: #1D1D1D;
+//     --grey:#74768F;
+
+
+
+//     --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
+//     --item1-filter: blur(30px);
+//     --item1-zIndex: 11;
+//     --item1-opacity: 0;
+
+//     --item2-transform: translateX(0);
+//     --item2-filter: blur(0px);
+//     --item2-zIndex: 10;
+//     --item2-opacity: 1;
+
+//     --item3-transform: translate(50%,10%) scale(0.8);
+//     --item3-filter: blur(10px);
+//     --item3-zIndex: 9;
+//     --item3-opacity: 1;
+
+//     --item4-transform: translate(90%,20%) scale(0.5);
+//     --item4-filter: blur(30px);
+//     --item4-zIndex: 8;
+//     --item4-opacity: 1;
+
+
+    
+//   }
   
 body {
 font-family: 'Poppins', sans-serif;
 }
   
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--grey);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}

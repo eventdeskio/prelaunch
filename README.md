@@ -1,4 +1,192 @@
 # Prelaunch Page for Event Management Website
+## Developer Guidelines
+
+### 1. Branching Strategy
+
+#### Main Branches:
+- **main**: Always in a deployable state (production-ready).
+- **dev**: Latest development version, integrates features before moving to main.
+
+#### Supporting Branches:
+- **feature/<name>**: For new features or enhancements.
+- **bugfix/<name>**: For fixing bugs found in the dev branch.
+- **hotfix/<name>**: For urgent fixes to main.
+- **chore/<name>**: For tasks like updating dependencies or documentation.
+
+#### Rules:
+- Create feature branches from `dev`.
+- Merge feature branches back into `dev` using pull requests (PRs).
+- Never push directly to `dev` or `main`. Always use PRs.
+
+### 2. Workflow Process
+
+#### Pull Latest Changes:
+Always pull the latest changes from `dev` before starting any work:
+
+git checkout dev
+git pull origin dev
+
+#### Create a New Branch:
+
+Branch off from dev using the naming convention:
+
+- git checkout -b feature/feature-name
+
+#### Commit Frequently:
+
+Keep commits small and focused on a single change or feature.
+Use descriptive commit messages:
+
+- feat: add user authentication using OAuth
+- fix: resolve null pointer in dashboard component
+  
+**Push to Remote:**
+
+- git push origin feature/feature-name
+  
+**Create a Pull Request (PR):**
+
+- Ensure the PR is from feature/<name> to dev.
+- Link related issues in the PR description.
+- Assign at least one reviewer and do not merge your own PR.
+
+**Code Review and Approval:**
+
+- At least one approval required before merging.
+- Address feedback promptly and push changes to the same branch.
+- Sync with dev Before Merging:
+
+Before merging, sync with the latest dev to avoid conflicts:
+- git fetch origin dev
+- git merge origin/dev
+
+**Resolve any conflicts locally, test the build, and push again**.
+
+**Merge and Delete Branch:**
+
+After approval, Squash and Merge the PR.
+Delete the feature branch from GitHub to keep the repo clean.
+
+### 3. Tricks to Avoid Merge Conflicts
+
+#### Trick #1: Short-Living Branches
+Why: Long-living branches are prone to merge conflicts because the longer the branch exists, the more likely someone else will modify the same part of the code.
+Guidelines:
+Keep feature branches short-lived—preferably less than a day.
+Merge changes back to dev frequently.
+
+Example workflow:
+##### Create and work on feature branch
+- git checkout -b feature/new-ui-component
+- git add .
+- git commit -m "feat: add new UI component"
+- git push origin feature/new-ui-component
+
+##### Create Pull Request and merge back to dev quickly
+##### After approval:
+- git checkout dev
+- git pull origin dev
+- git branch -d feature/new-ui-component
+
+#### Trick #2: Small Modules
+Why: Following the Single Responsibility Principle from SOLID design ensures that a class or module has only one reason to change. This reduces the likelihood of two developers editing the same file simultaneously.
+Guidelines:
+- Split large components or classes into smaller, single-responsibility modules.
+- Ensure each module has a clearly defined purpose.
+- Use folder structures that reflect modular boundaries.
+  **Example:**
+
+
+src/  
+&nbsp;&nbsp;&nbsp;&nbsp;components/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header.test.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer.js  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footer.test.js  
+
+Assign clear ownership of modules to team members to reduce overlaps.
+
+### 4. Conflict Prevention Tips
+#### Small, Incremental Changes:
+
+Break down large tasks into smaller, manageable chunks.
+Regularly push changes to avoid massive merges.
+Frequent Syncing:
+
+Regularly sync feature branches with the latest dev.
+
+Example:
+
+- git fetch origin dev
+- git merge origin/dev
+
+#### Clear Ownership:
+
+Assign team members ownership of specific modules or components.
+This reduces the chances of multiple people editing the same files.
+
+### 5. Testing and CI/CD
+#### Automated Tests:
+
+Ensure all code is covered by unit tests.
+Run tests locally before pushing.
+
+#### Continuous Integration:
+
+Implement CI pipelines that run tests and lint checks on every PR.
+Example tools: GitHub Actions, CircleCI, or Jenkins.
+
+#### No Failing Tests:
+
+**Do not merge PRs with failing tests.**
+
+### 6. Code Quality and Consistency
+#### Linting and Formatting:
+
+Enforce consistent code style using tools like ESLint and Prettier.
+Include pre-commit hooks (e.g., using Husky) to run linters and tests:
+
+"husky": {
+  "hooks": {
+    "pre-commit": "npm run lint && npm test"
+  }
+}
+#### Code Reviews:
+
+Focus on logic, readability, maintainability, and security.
+Encourage constructive feedback and knowledge sharing.
+
+### 7. Documentation and Communication
+#### README Updates:
+
+Update README.md if changes impact setup, usage, or deployment.
+Comments and Documentation:
+
+Document complex logic within the code.
+Update API docs and architectural diagrams as needed.
+#### Communication:
+
+Regular stand-ups and clear communication in team channels to avoid duplicate work.
+### 8. Example Git Commands
+#### Creating a Branch:
+
+git checkout -b feature/new-ui-component
+
+#### Syncing with dev:
+
+- git fetch origin dev
+- git merge origin/dev
+- Rebasing (Alternative to Merge):
+
+#### Resolving Conflicts:
+
+- git status
+- git add <file>
+- git commit
+
+---
 
 ## Overview
 This repository contains the prelaunch page for our upcoming Event Management website. The prelaunch page consists of two key sections:
@@ -91,6 +279,9 @@ This project follows an automated deployment pipeline:
    - The new version is deployed while the existing version continues running.
 4. **Health Check & Rollback:**
    - If any issues are detected, the deployment is rolled back automatically.
+
+## Deployed @ 
+- https://devf.eventdesk.io/
 
 ## License
 This project is licensed under the MIT License.

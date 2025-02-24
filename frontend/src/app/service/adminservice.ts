@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root' 
 })
+
 export class AdminService {
-  private apiUrl = window.location.origin.includes('localhost') ? 'http://localhost:5000':'https://api.eventdesk.io'; 
+  private apiUrl = environment.apiUrl; 
 
 
   constructor(private http: HttpClient) {}
@@ -18,6 +19,10 @@ export class AdminService {
       .set('limit', limit.toString());
     console.log(this.apiUrl, window.location.origin,)
     return this.http.get<any>(`${this.apiUrl}/getlist`, { params });
+  }
+
+  auth(inp:any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/check`, inp);
   }
 
   uploadFile(file: File): Observable<any> {
@@ -40,5 +45,9 @@ export class AdminService {
       message: data['message'],
     };
     return this.http.post<any>(`${this.apiUrl}/savedetails`, details);
+  }
+  
+  updateReviewedStatus(updates: { id: number; reviewed: boolean }[]): Observable<any> {
+    return this.http.put(`${this.apiUrl}/updateReviewed`, { updates });
   }
 }

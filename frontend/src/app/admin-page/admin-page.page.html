@@ -1,24 +1,33 @@
 <div>
   <div *ngIf="!isAuthenticated" class="auth-container">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Admin Login</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <div class="animated-gradient-bg">
+      <div class="toolbar">
+        <h1 class="title">Admin Login</h1>
+      </div>
+    </div>
 
-    <div class="login-form">
-      <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>
-      <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
-      <ion-button expand="full" (click)="authenticate()">Login</ion-button>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Please enter your credentials to continue.</p>
+
+        <input type="text" placeholder="Username" [(ngModel)]="username" class="custom-input">
+        <input type="password" placeholder="Password" [(ngModel)]="password" class="custom-input">
+
+        <button class="login-button" (click)="authenticate()">Login</button>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="isAuthenticated">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Admin Page</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <div *ngIf="isAuthenticated" class="toscroll">
+    <div class="animated-gradient-bg1">
+      <div class="toolbar">
+        <div class="tool">
+          <h1 class="title">Admin Page</h1>
+          <button class="custom-button" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
 
     <div *ngIf="sampleData.length > 0" class="table-container">
       <h2>Submitted Applications</h2>
@@ -29,11 +38,12 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>City</th>
-            <th>State</th>
+            <!-- <th>City</th>
+            <th>State</th> -->
             <th>Resume</th>
             <th>LinkedIn</th>
             <th>Portfolio</th>
+            <th>Reviewed</th>
           </tr>
         </thead>
         <tbody>
@@ -42,21 +52,38 @@
             <td>{{ application.last_name }}</td>
             <td>{{ application.email }}</td>
             <td>{{ application.phone_number }}</td>
-            <td>{{ application.city }}</td>
-            <td>{{ application.state }}</td>
+            <!-- <td>{{ application.city }}</td>
+            <td>{{ application.state }}</td> -->
             <td><a [href]="application.resume" target="_blank">Resume</a></td>
             <td><a [href]="application.linkedin" target="_blank">LinkedIn</a></td>
             <td><a *ngIf="application.portfolio" [href]="application.portfolio" target="_blank">Portfolio</a></td>
+            <!-- <td>
+              <input type="checkbox" [(ngModel)]="application.reviewed">
+            </td> -->
+
+            <td>
+              <label class="toggler-wrapper style-24">
+                <input type="checkbox" [(ngModel)]="application.reviewed">
+                <div class="toggler-slider">
+                  <div class="toggler-knob"></div>
+                </div>
+              </label>
+            </td>
+            
           </tr>
         </tbody>
       </table>
-    <!-- Add your admin page content here -->
+
+      <div class="save-button-container">
+        <button class="custom-button-save" (click)="updateReviewedStatus()">Save</button>
+      </div>
+
       <!-- Pagination Controls -->
-    <div class="pagination">
-      <ion-button (click)="previousPage()" [disabled]="page <= 1">Previous</ion-button>
-      <span>Page {{ page }}</span>
-      <ion-button (click)="nextPage()" [disabled]="sampleData.length < limit">Next</ion-button>
+      <div class="pagination">
+        <button class="custom-button" (click)="previousPage()" [disabled]="page <= 1">Previous</button>
+        <span>Page {{ page }}</span>
+        <button class="custom-button" (click)="nextPage()" [disabled]="sampleData.length < limit">Next</button>
+      </div>
     </div>
-  
   </div>
 </div>

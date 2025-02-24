@@ -3,5 +3,5 @@ WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install --no-cache 
 COPY . .
-EXPOSE 5000
+EXPOSE 5001
 CMD ["npm", "start"]

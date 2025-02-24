@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-prelaunch-footer',
@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrelaunchFooterComponent  implements OnInit {
 
+  @Input() boyImageFlag: boolean = true; // Explicitly declare as boolean
+
+  temp:boolean=true;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("Boy Image Flag:", this.boyImageFlag);
+  }
 
 }

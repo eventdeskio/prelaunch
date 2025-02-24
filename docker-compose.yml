@@ -4,8 +4,8 @@ services:
   backend:
     build:
       context: ./backend  
-    image: rajaramachandran/eventdesk:backend_v1  
+    image: rajaramachandran/eventdesk:backend_dev_v1 
   frontend:
     build:
       context: ./frontend 
-    image: rajaramachandran/eventdesk:frontend_v1  
+    image: rajaramachandran/eventdesk:frontend_dev_v1 
