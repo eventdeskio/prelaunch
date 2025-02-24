@@ -1,7 +1,7 @@
 # Prelaunch Page for Event Management Website
 ## Developer Guidelines
 
-### 1. Branching Strategy
+### 1. Branching Strategy 
 
 #### Main Branches:
 - **main**: Always in a deployable state (production-ready).
