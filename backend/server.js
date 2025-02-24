@@ -232,8 +232,8 @@ app.post("/savedetails", async (req, res) => {
       phoneNumber: Joi.string()
         .pattern(/^[0-9]{10}$/)
         .required(),
-      city: Joi.string().max(100).required(),
-      state: Joi.string().max(100).required(),
+      city: 'sample',
+      state: 'sample',
       linkedin: Joi.string().uri().required(),
       portfolio: Joi.alternatives().try(Joi.string().uri(), Joi.string().allow("")).optional(),
       resume: Joi.string().uri().required(),
@@ -302,8 +302,8 @@ app.post("/savedetails", async (req, res) => {
         sanitizedData.lastName,
         sanitizedData.email,
         sanitizedData.phoneNumber,
-        sanitizedData.city,
-        sanitizedData.state,
+        sanitizedData.city || "test",
+        sanitizedData.state || "test",
         sanitizedData.linkedin,
         sanitizedData.portfolio || null,
         sanitizedData.resume,
@@ -311,7 +311,6 @@ app.post("/savedetails", async (req, res) => {
         sanitizedData.selectedRoles,
         new Date(),
       ];
-
       const result = await client.query(query, values);
       await client.query("COMMIT");
 

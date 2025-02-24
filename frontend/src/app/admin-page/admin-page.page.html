@@ -38,8 +38,8 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>City</th>
-            <th>State</th>
+            <!-- <th>City</th>
+            <th>State</th> -->
             <th>Resume</th>
             <th>LinkedIn</th>
             <th>Portfolio</th>
@@ -52,8 +52,8 @@
             <td>{{ application.last_name }}</td>
             <td>{{ application.email }}</td>
             <td>{{ application.phone_number }}</td>
-            <td>{{ application.city }}</td>
-            <td>{{ application.state }}</td>
+            <!-- <td>{{ application.city }}</td>
+            <td>{{ application.state }}</td> -->
             <td><a [href]="application.resume" target="_blank">Resume</a></td>
             <td><a [href]="application.linkedin" target="_blank">LinkedIn</a></td>
             <td><a *ngIf="application.portfolio" [href]="application.portfolio" target="_blank">Portfolio</a></td>

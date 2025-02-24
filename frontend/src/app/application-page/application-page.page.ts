@@ -61,8 +61,8 @@ export class ApplicationPagePage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       selectedRoles: [[]],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
+      // city: ['', Validators.required],
+      // state: ['', Validators.required],
       linkedin: ['', Validators.required],
       portfolio: [''],
       resume: [null, Validators.required],
@@ -155,8 +155,8 @@ export class ApplicationPagePage implements OnInit {
       lastName: data['lastName'],
       email: data['email'],
       phoneNumber: data['phoneNumber'],
-      city: data['city'],
-      state: data['state'],
+      // city: data['city'],
+      // state: data['state'],
       linkedin: data['linkedin'],
       portfolio: data['portfolio'],
       selectedRoles: data['selectedRoles'],
@@ -226,20 +226,20 @@ export class ApplicationPagePage implements OnInit {
             this.saveDetails(data, fileResponse.driveLink).subscribe(
               (response) => {
                 this.toastr.success('Application submitted successfully');
-
                 this.loading = false;
+                grecaptcha.reset();
               },
               (error) => {
-                this.toastr.error(`${error.error.error}`);
+                this.toastr.error(`${error.error.details}`);
                 this.loading = false;
-
-                console.error('Error saving details:', error.error.error);
+                grecaptcha.reset();
+                console.error('Error saving details:', error.error.details);
               }
             );
           },
           (error) => {
             this.loading = false;
-
+            grecaptcha.reset();
             console.error('Error uploading file:', error);
           }
         );

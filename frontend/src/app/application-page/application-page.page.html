@@ -9,7 +9,7 @@
     </button>
 
     <nav class="d-none d-md-block" id="navbarNav">
-      <a href="#" class="nav-link fs-6 application-link text-primary fw-regular hover-pointer text-decoration-none">Back to
+      <a href="#" class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none">Back to
         launch page</a>
     </nav>
 
@@ -73,14 +73,14 @@
                 </button>
               </div>
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <label class="w-100" label="firstName">City <b class="text-danger">*</b><input type="text"
                   class="form-control" formControlName="city" placeholder="Enter City Name"></label>
             </div>
             <div class="col-md-6">
               <label class="w-100" label="firstName">State <b class="text-danger">*</b><input type="text"
                   class="form-control" formControlName="state" placeholder="Enter State Name"></label>
-            </div>
+            </div> -->
 
             <div class="col-md-6">
               <label class="w-100" label="firstName">Linkedin Profile <b class="text-danger">*</b><input type="url"
@@ -107,7 +107,7 @@
 
 
           <!-- <div class="g-recaptcha" data-sitekey="6Lfz0t8qAAAAACB1lya4se63kGU09yFpmVV_UKu3"></div> -->
-          <div class="g-recaptcha" [attr.data-sitekey]="siteKey" style="display: flex;justify-content: center;"></div>
+          <div class="g-recaptcha" [attr.data-sitekey]="siteKey" style="display: flex;justify-content: center;transform: scale(0.77);"></div>
 
           <div class="load">
             <button (click)="submitForm($event)" class="classic-btn btn btn-primary mt-4" expand="block"

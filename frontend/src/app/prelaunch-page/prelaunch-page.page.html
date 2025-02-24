@@ -1,50 +1,33 @@
-<header
-  class="navbar navbar-expand-lg shadow-sm px-2 px-md-4 py-2 w-100"
-  style="position: absolute; top: 0; left: 0; z-index: 1000"
->
-  <div
-    class="container-fluid d-flex justify-content-between align-items-center"
-  >
-    <a
-      class="navbar-brand d-flex align-items-center"
-      href="#"
-      (click)="navigateToHome()"
-    >
-      <img
-        src="../../assets/eventDeskLogo.png"
-        alt="Logo"
-        width="25"
-        height="25"
-        class="me-2"
-      />
+<header class="navbar navbar-expand-lg shadow-sm px-2 px-md-4 py-2 w-100" style="position: absolute; top:0;left: 0;z-index: 1000;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand d-flex align-items-center" href="#" (click)="navigateToHome()">
+      <img src="../../assets/eventDeskLogo.png" alt="Logo" width="25" height="25" class="me-2" />
       <span class="h5 fw-semibold mb-0 fs-6">EventDesk.io</span>
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <nav class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav pt-3 pt-md-0 gap-4">
         <li class="nav-item">
-          <a href="#feature" class="nav-link">Feature</a>
+          <a href="#feature" class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Features</a>
         </li>
-        <li class="nav-item"><a href="#footer" class="nav-link">Contact</a></li>
+        <!-- <li class="nav-item">
+          <a href="#footer" class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contact</a>
+        </li> -->
         <li class="nav-item">
-          <a
-            class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none"
-            (click)="navigateToApplication()"
-            >We're Hiring</a
-          >
+          <a class="nav-link application-link text-primary fw-regular hover-pointer text-decoration-none" 
+             (click)="navigateToApplication()" 
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            We're Hiring
+          </a>
         </li>
       </ul>
     </nav>
   </div>
 </header>
+
 
 <div class="ion-pad">
   <div class="main-section w-100">
@@ -62,7 +45,7 @@
       </p>
 
       <div
-        class="mailbox-field w-100 mt-2 pt-5 pt-md-1 justify-content-center gap-2"
+        class="mailbox-field w-100 mt-2 pt-5 pt-md-1 d-flex flex-column flex-md-row justify-content-center gap-2"
       >
         <input
           type="email"
@@ -70,29 +53,35 @@
           class="form-control"
           (input)="onEmailChange($event)"
         />
-        <div class="capbtn">
-          <div
-            class="g-recaptcha"
-            [attr.data-sitekey]="siteKey"
-            style="display: flex; justify-content: center"
-          ></div>
-
+        
           <button
             *ngIf="!isDemoScheduled"
-            class="classic-btn btn btn-primary w-md-auto mt-2"
+            class="classic-btn btn btn-primary w-md-auto"
             (click)="scheduleDemo('scheduleDemo')"
           >
             Schedule a demo
           </button>
           <button
             *ngIf="isDemoScheduled"
-            class="classic-btn btn btn-primary w-md-auto mt-2"
+            class="classic-btn btn btn-primary w-md-auto"
             (click)="scheduleDemo('scheduleDemo')"
           >
-            Reschedule
+            Schedule again !
           </button>
-        </div>
+
+          
       </div>
+
+      <div #recaptchaContainer class="capbtn" style="transform: scale(0.77);">
+        <div
+          class="g-recaptcha"
+          [attr.data-sitekey]="siteKey"
+          style="display: flex; justify-content: center;"
+          #recaptcha
+        ></div>
+
+      </div>
+    
       <!-- <div *ngIf="isDemoScheduled" class="notification-container">
         <div
           class="mt-4 pt-5 pt-md-1 d-flex flex-column flex-md-column align-items-center justify-content-center gap-2">

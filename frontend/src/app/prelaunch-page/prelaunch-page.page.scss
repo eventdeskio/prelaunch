@@ -75,12 +75,34 @@
     transform: translateY(0);
 }
 
-.mailbox-field{
+.g-recaptcha-container {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+    overflow: hidden;
+  }
+  .g-recaptcha {
+    transform-origin: center;
+    transition: transform 0.2s ease;
+  }
+
+
+// .g-recaptcha {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     transform-origin: left top;
+//     -webkit-transform-origin: left top;
+//     transform:scale(0.60);
+//     transform-origin:0 0;
+//   }
+
+// .mailbox-field{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+// }
 .main-section {
     background-image: url(../../assets/mainbg.png);
     background-size: cover;

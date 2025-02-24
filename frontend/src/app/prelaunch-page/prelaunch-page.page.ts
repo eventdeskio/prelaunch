@@ -6,6 +6,7 @@ import {
   HostListener,
   ChangeDetectorRef,
 } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -23,6 +24,8 @@ import { ParallaxCarouselComponent } from '../parallax-carousel/parallax-carouse
 
 import posthog from 'posthog-js';
 import { Subscription } from 'rxjs';
+
+import { ElementRef } from '@angular/core';
 
 register();
 
@@ -46,6 +49,9 @@ export class PrelaunchPagePage implements OnInit {
   private heroSection!: HTMLElement | null;
   siteKey: String = environment.siteKey;
   private featureSection!: HTMLElement | null;
+
+  @ViewChild('recaptchaContainer') container!: ElementRef;
+  @ViewChild('recaptcha') recaptcha!: ElementRef;
 
   // private textToType: string =
   //   '"…It’s the tool you didn’t know you needed until now."';
@@ -114,6 +120,20 @@ export class PrelaunchPagePage implements OnInit {
     }
   }
 
+
+  private resizeRecaptcha() {
+    const containerWidth = this.container.nativeElement.offsetWidth;
+    const recaptchaWidth = 304; // Default reCAPTCHA width
+    
+    if (containerWidth < recaptchaWidth) {
+      const scale = containerWidth / recaptchaWidth;
+      const transform = `scale(${scale})`;
+      this.recaptcha.nativeElement.style.transform = transform;
+    } else {
+      this.recaptcha.nativeElement.style.transform = 'none';
+    }
+  }
+
   termsAccept() {
     this.termsAccepted = true;
     localStorage.setItem('terms_accepted', 'true');
@@ -147,6 +167,11 @@ export class PrelaunchPagePage implements OnInit {
   }
 
   ngAfterViewInit(): void {
+
+    // this.resizeRecaptcha();
+    // window.addEventListener('resize', () => this.resizeRecaptcha());
+
+
     setTimeout(() => {
       document.querySelector('.herosection')?.classList.add('text-visible');
       document.querySelector('.navbar')?.classList.add('visible');
@@ -187,6 +212,9 @@ export class PrelaunchPagePage implements OnInit {
     //     }
     //   }, 50); // Adjust speed (lower = faster)
   }
+
+ 
+
 
   private observeFeatureSection(): void {
     const observer = new IntersectionObserver(
@@ -255,11 +283,13 @@ export class PrelaunchPagePage implements OnInit {
           localStorage.setItem('userEmail', this.emailText);
 
           this.isDemoScheduled = true;
+          grecaptcha.reset();
         },
         (error) => {
           this.toastr.error(`${error.error.error}`);
 
           console.error('Error saving details:', error);
+          grecaptcha.reset();
         }
       );
       console.log('Entered Email:', this.emailText);
@@ -302,6 +332,9 @@ export class PrelaunchPagePage implements OnInit {
   }
 
   ngOnDestroy() {
+
+    window.removeEventListener('resize', () => this.resizeRecaptcha());
+
     const sessionDuration = (Date.now() - this.sessionStartTime) / 1000;
     console.log(`Session duration: ${sessionDuration} seconds`);
     posthog.capture('session_duration', { duration: sessionDuration });
