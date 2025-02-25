@@ -92,6 +92,7 @@ app.get("/health", (req, res) => {
     status: "healthy",
     version: "1.0.0",
     environment: process.env.NODE_ENV || "development",
+    test:"ok"
   };
 
   res.status(200).json(response);
@@ -432,7 +433,9 @@ app.listen(process.env.SERVER_PORT, () =>
 
 app.post('/verify-recaptcha', async (req, res) => {
   const { recaptchaToken } = req.body;
+  console.log(recaptchaToken,"-------------------------")
   const secretKey = process.env.SECRET_KEY;
+  console.log(secretKey , "--------------")
   const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`, {
       method: 'POST',
   });
