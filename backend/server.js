@@ -8,7 +8,7 @@ const { Pool } = require("pg");
 const Joi = require("joi");
 const createDOMPurify = require("isomorphic-dompurify");
 const { JSDOM } = require("jsdom");
-const axios = require("axios")
+const axios = require("axios");
 const {
   monitoringMiddleware,
   getMetrics,
@@ -87,12 +87,12 @@ app.post("/check", (req, res) => {
 
 app.get("/health", (req, res) => {
   logger.info("Req came on Health route");
-
+  console.log(process.env.SECRET_KEY,"env working");
   const response = {
     status: "healthy",
     version: "1.0.0",
     environment: process.env.NODE_ENV || "development",
-    test:"ok"
+    test: "ok",
   };
 
   res.status(200).json(response);
@@ -184,16 +184,18 @@ app.post("/saveEmail", async (req, res) => {
           WHERE email = $1 
           RETURNING id, count
         `;
-        const updateResult = await client.query(updateQuery, [sanitizedData.email]);
-    
+        const updateResult = await client.query(updateQuery, [
+          sanitizedData.email,
+        ]);
+
         return res.status(200).json({
           updated: true,
           message: "Email already exists, incremented count.",
           id: updateResult.rows[0].id,
-          count: updateResult.rows[0].count
+          count: updateResult.rows[0].count,
         });
       }
-    
+
       await client.query("BEGIN");
 
       const query = `
@@ -233,10 +235,12 @@ app.post("/savedetails", async (req, res) => {
       phoneNumber: Joi.string()
         .pattern(/^[0-9]{10}$/)
         .required(),
-      city: 'sample',
-      state: 'sample',
+      city: "sample",
+      state: "sample",
       linkedin: Joi.string().uri().required(),
-      portfolio: Joi.alternatives().try(Joi.string().uri(), Joi.string().allow("")).optional(),
+      portfolio: Joi.alternatives()
+        .try(Joi.string().uri(), Joi.string().allow(""))
+        .optional(),
       resume: Joi.string().uri().required(),
       message: Joi.string().max(1000).required(),
       selectedRoles: Joi.array()
@@ -397,7 +401,6 @@ app.listen(process.env.SERVER_PORT, () =>
   console.log(`Server running on port ${process.env.SERVER_PORT}`)
 );
 
-
 // app.post('/verify-recaptcha', async (req, res) => {
 //   const { recaptchaToken } = req.body;
 //   if (!recaptchaToken) {
@@ -405,7 +408,7 @@ app.listen(process.env.SERVER_PORT, () =>
 //   }
 
 //   try {
-//       const secretKey = process.env.SECRET_KEY; 
+//       const secretKey = process.env.SECRET_KEY;
 //       const response = await axios.post(
 //           `https://www.google.com/recaptcha/api/siteverify`,
 //           null,
@@ -430,19 +433,22 @@ app.listen(process.env.SERVER_PORT, () =>
 //   }
 // });
 
-
-app.post('/verify-recaptcha', async (req, res) => {
+app.post("/verify-recaptcha", async (req, res) => {
+  console.log(process.env.SECRET_KEY);
   const { recaptchaToken } = req.body;
-  console.log(recaptchaToken,"-------------------------")
+  console.log(recaptchaToken, "-------------------------");
   const secretKey = process.env.SECRET_KEY;
-  console.log(secretKey , "--------------")
-  const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`, {
-      method: 'POST',
-  });
+  console.log(secretKey, "--------------");
+  const response = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
+    {
+      method: "POST",
+    }
+  );
   const data = await response.json();
   if (data.success) {
-      res.json({ success: true, message: "Valid reCAPTCHA" });
+    res.json({ success: true, message: "Valid reCAPTCHA" });
   } else {
-      res.status(400).json({ success: false, message: "reCAPTCHA failed" });
+    res.status(400).json({ success: false, message: "reCAPTCHA failed" });
   }
 });
