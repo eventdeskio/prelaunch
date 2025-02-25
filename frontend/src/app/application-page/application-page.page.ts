@@ -256,7 +256,7 @@ export class ApplicationPagePage implements OnInit {
       Object.keys(this.jobForm.controls).forEach((key) => {
         const controlErrors = this.jobForm.get(key)?.errors;
         if (controlErrors) {
-          this.toastr.error(`Error in ${key}`);
+          this.toastr.error(`Invalid input in ${key}`);
           console.log(`Error in ${key}:`, controlErrors);
         }
       });
